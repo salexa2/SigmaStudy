@@ -31,11 +31,7 @@ class gallary():
         print("\n")
 
     def optionmenu_callback(self, choice):
-        
-        if(choice == "Edit"):
-         print("Edit clicked:", box.get())
-        if(choice == "Delete Set"):
-         print("Delete Set", box.get())
+      pass
           
 
     
@@ -45,6 +41,9 @@ class gallary():
         posx = 50
         posy = 100
         self.print_size()
+
+
+
         for i in self.library:   
            # print("count var: ",count)
             if(count < len(self.library)):
