@@ -2,10 +2,9 @@
 from tkinter import * 
 import customtkinter
 from tkinter import filedialog
-import flashcardset
-
-import gallary
-from gallary import * 
+from flashcardset import * 
+from gallary import *
+from SaveAndLoad import *
 
 
 """
@@ -41,8 +40,8 @@ root.grid_rowconfigure((0, 1, 2), weight=1)
 
 
 #---------------------variables-------------------
-library= []
-
+library = []
+saveName = "data.json"
 
 #-------------------functions-----------------------
 def change_appearance_mode_event( new_appearance_mode: str):
@@ -54,7 +53,7 @@ def file_open():
     if (len(root.filename) == 0): 
         return None
         
-    #convert the video to a text file named txtfile, the file variable is root.filename. You can also change or add to this part-- this here to accept youtube links
+    #convert the video to a text file named txtfile
 
 
     #Code here  
@@ -79,14 +78,17 @@ def addCard(upload_frame,flashset,front,back):
 
 #creates an empty set 
 def create_a_set(upload_frame):
- flashset = flashcardset()
- flashcard_page(upload_frame,flashset)
- print("Unit Testing 2.0: Closed Flashcard_page")
+    flashset = flashcardset()
+    flashcard_page(upload_frame,flashset)
+    print("Unit Testing 2.0: Closed Flashcard_page")
 
 def addSet(flashset):
+    global library
+    loadSets()
     dialog = customtkinter.CTkInputDialog(text="What would you like to name your set?", title= "New FlashCard Set")
     flashset.set_Name(dialog.get_input())
     library.append(flashset)
+    SaveAndLoad.save_data(library, saveName);
     upload_page()
    
     #prints out the flash card sets to terminal 
@@ -96,6 +98,15 @@ def addSet(flashset):
     print("__________________\n")
     
 
+#loads flashcard sets (called on program launch)
+def loadSets():
+    loader = SaveAndLoad.load_data(saveName);
+    if loader is None:
+        print("no saved data found")
+        return
+    global library
+    library = loader.copy();
+ 
 #-------------------pages---------------
 
 #opens a flashcard creator.
@@ -118,7 +129,8 @@ def flashcard_page(upload_frame,flashset):
  done_button = customtkinter.CTkButton(flash_frame, text = "✓" , text_color ="#000000", fg_color= "#FFFFFF", hover_color = "#CFCFCF" ,corner_radius = 200, width = 25, height = 30, font = ("Helvetica",18), anchor="center", command = lambda:addSet(flashset))
  done_button.place(x=480, y= 338)
 
-#page where you upload an audio
+
+
 def upload_page():
    
    upload_frame = customtkinter.CTkFrame(root, width = 1350, height = 800)
@@ -140,6 +152,7 @@ def upload_page():
 
 
 def gallary_page():
+   loadSets()
    gallary_frame = customtkinter.CTkFrame(root, width = 1350, height = 800) 
    gallary_frame.grid(row=0,column = 2, sticky="w")
    upload_label = customtkinter.CTkLabel(gallary_frame, text="This is the Gallary", font=customtkinter.CTkFont(size=20, weight="bold"))
@@ -149,9 +162,6 @@ def gallary_page():
    gal.print_size()
    if(len(library)>0):
         gal.display()
-   
- 
-   
    
 
 
