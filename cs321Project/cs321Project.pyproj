@@ -26,6 +26,7 @@
     <Compile Include="flashcard.py" />
     <Compile Include="flashcardset.py" />
     <Compile Include="gallary.py" />
+    <Compile Include="SaveAndLoad.py" />
     <Compile Include="testing321.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
