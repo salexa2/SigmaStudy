@@ -1,8 +1,8 @@
-﻿
-from flashcard import * 
+﻿from flashcard import * 
 import tkinter 
 from tkinter import * 
 import customtkinter
+from SaveAndLoad import *
 #from PIL import Image 
 
 
@@ -15,6 +15,7 @@ class flashcardset:
    # global play_button 
     global index
     global delete_pframes 
+    global library
     
     
 
@@ -24,6 +25,7 @@ class flashcardset:
         #self.play_button = customtkinter.CTkImage(light_image=Image.open("widgets\start-green-play-icon-1.png"))
         self.index = 0
         self.delete_pframes = []
+        self.library = []
                 
 
     def get_Size(self):
@@ -74,6 +76,7 @@ class flashcardset:
             x.destroy()
             self.index = 0
         print("check4.2\n")
+        SaveAndLoad.save_data(self.library, "data.json");
         return
     
     def removeCard(self,root):
@@ -140,12 +143,13 @@ class flashcardset:
      
 
 
-    def displaySet(self,gallary_frame,root):
+    def displaySet(self,gallary_frame,root,lib):
   
          set_label = customtkinter.CTkLabel(gallary_frame, text = self.get_Name(),font=customtkinter.CTkFont(size=16, weight="bold"))
          set_label.place(x = 50, y = 30, anchor = "center")
          play_b = customtkinter.CTkButton(gallary_frame, text = "▶️",width = 5,height = 5, border_width=0, fg_color= "transparent",  command = lambda:self.play(root))
          play_b.place(x = 15, y = 85, anchor = "center")
+         self.library = lib
          return
          
          
