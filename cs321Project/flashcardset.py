@@ -76,13 +76,14 @@ class flashcardset:
             x.destroy()
             self.index = 0
         print("check4.2\n")
-        SaveAndLoad.save_data(self.library, "data.json");
+        SaveAndLoad.save_data(self.library, "data.json")
         return
     
-    def removeCard(self,root):
+    '''def removeCard(self,root):
 
         print("index1:%d", self.index)
-
+        if(self.get_Size() == 0):
+            print("this bad")
         self.flashset.remove(self.flashset[self.index])
         
         if(self.index == 0 and self.get_Size() == 0):
@@ -96,9 +97,10 @@ class flashcardset:
 
         if(self.get_Size()> 0):
          self.play(root)
-        
+
+        print(self.index)
         return 
-       
+    '''   
      
        
    
@@ -118,6 +120,8 @@ class flashcardset:
            #adds frame to set for later 
            self.delete_pframes.append(play_frame)
 
+           #save newly added pframes
+           ##SaveAndLoad.save_data(self.library, "data.json")
 
            #next card
            if(self.index < self.get_Size()-1):
@@ -128,15 +132,13 @@ class flashcardset:
            done_button = customtkinter.CTkButton(play_frame, text = "✓" , text_color ="#000000", fg_color= "#FFFFFF", hover_color = "#CFCFCF" ,corner_radius = 200, width = 25, height = 30, font = ("Helvetica",18), anchor="center", command = lambda:self.removepframes())
            done_button.place(x=1100, y= 650)
 
-          # my_image = customtkinter.CTkImage(light_image=Image.open(r'C:\Users\shana\Documents\SemesterProject321\testing321\widgets\trash-icon-png-9.png', 'r'))
-
+           self.displayCard(play_frame,self.index)
+           # my_image = customtkinter.CTkImage(light_image=Image.open(r'C:\Users\shana\Documents\SemesterProject321\testing321\widgets\trash-icon-png-9.png', 'r'))
+           '''
            remove_card = customtkinter.CTkButton(play_frame, text = "🚮",fg_color= "transparent",border_width=0, width = 40, height = 40, command = lambda:self.removeCard(root))
            remove_card.place(x = 1180, y = 16 ,anchor="center")
-
+           '''
            #edit button 
-
-       
-           self.displayCard(play_frame,self.index)
        
        
 
@@ -151,26 +153,3 @@ class flashcardset:
          play_b.place(x = 15, y = 85, anchor = "center")
          self.library = lib
          return
-         
-         
-
-
-
-
-
-       
-
-    
-  
-   
-   
-
-
-    
-
-
-
-
-
-
-
