@@ -4,7 +4,7 @@ from flashcardset import *
 import tkinter 
 from tkinter import * 
 import customtkinter
-from PIL import Image  
+#from PIL import Image  
 
 class gallary():
 

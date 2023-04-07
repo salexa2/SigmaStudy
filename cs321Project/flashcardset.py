@@ -3,7 +3,7 @@ from flashcard import *
 import tkinter 
 from tkinter import * 
 import customtkinter
-from PIL import Image 
+#from PIL import Image 
 
 
 
@@ -12,7 +12,7 @@ class flashcardset:
 
     global flashset 
     global flash_name  
-    global play_button 
+   # global play_button 
     global index
     global delete_pframes 
     
@@ -21,15 +21,15 @@ class flashcardset:
     def __init__(self):
         self.flashset = []
         self. flash_name = ""
-        self.play_button = customtkinter.CTkImage(light_image=Image.open("widgets\start-green-play-icon-1.png"))
+        #self.play_button = customtkinter.CTkImage(light_image=Image.open("widgets\start-green-play-icon-1.png"))
         self.index = 0
         self.delete_pframes = []
                 
 
     def get_Size(self):
         return len(self.flashset)
-    def get_Play(self):
-        return self.play_button
+   # def get_Play(self):
+        #return self.play_button
     def get_Image(self): 
         return self.set_image
     def get_Name(self):
@@ -125,9 +125,9 @@ class flashcardset:
            done_button = customtkinter.CTkButton(play_frame, text = "✓" , text_color ="#000000", fg_color= "#FFFFFF", hover_color = "#CFCFCF" ,corner_radius = 200, width = 25, height = 30, font = ("Helvetica",18), anchor="center", command = lambda:self.removepframes())
            done_button.place(x=1100, y= 650)
 
-           my_image = customtkinter.CTkImage(light_image=Image.open(r'C:\Users\shana\Documents\SemesterProject321\testing321\widgets\trash-icon-png-9.png', 'r'))
+          # my_image = customtkinter.CTkImage(light_image=Image.open(r'C:\Users\shana\Documents\SemesterProject321\testing321\widgets\trash-icon-png-9.png', 'r'))
 
-           #remove_card = customtkinter.CTkButton(play_frame, text = "🚮",fg_color= "transparent",border_width=0, width = 25, height = 30, command = lambda:self.removeCard(root))
+           remove_card = customtkinter.CTkButton(play_frame, text = "🚮",fg_color= "transparent",border_width=0, width = 40, height = 40, command = lambda:self.removeCard(root))
            remove_card.place(x = 1180, y = 16 ,anchor="center")
 
            #edit button 
@@ -144,7 +144,7 @@ class flashcardset:
   
          set_label = customtkinter.CTkLabel(gallary_frame, text = self.get_Name(),font=customtkinter.CTkFont(size=16, weight="bold"))
          set_label.place(x = 50, y = 30, anchor = "center")
-         play_b = customtkinter.CTkButton(gallary_frame, text = "", image = self.get_Play(),width = 5,height = 5, border_width=0, fg_color= "transparent",  command = lambda:self.play(root))
+         play_b = customtkinter.CTkButton(gallary_frame, text = "▶️",width = 5,height = 5, border_width=0, fg_color= "transparent",  command = lambda:self.play(root))
          play_b.place(x = 15, y = 85, anchor = "center")
          return
          
