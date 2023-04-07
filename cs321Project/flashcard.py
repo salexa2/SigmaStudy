@@ -1,6 +1,7 @@
 #creates a flashcard object 
 
 #from turtle import back
+from ast import Lambda
 from tkinter import * 
 import customtkinter
 
@@ -49,7 +50,7 @@ class flashcard:
    #displays the flash card
    def displayCard(self, root):
        print("Unit Testing 4.0: Card should show\n")
-       card_frame = customtkinter.CTkButton(root, text_color = "#000000", text = self.getFront(), hover_color="#F7F7F7", fg_color="#FFFFFF",width = 1000,height = 400, command = self.flip(card_frame,self.state)) 
+       card_frame = customtkinter.CTkButton(root, text_color = "#000000", text = self.getFront(), hover_color="#F7F7F7", fg_color="#FFFFFF",width = 1000,height = 400, command = lambda: self.flip(card_frame,self.state)) 
        card_frame.place(x = 100, y= 100)
       
 
