@@ -19,7 +19,6 @@ BASIC TOD0:
 -make a button to display the cards (flashcard gallery)
 -make the GUI for the cards (maybe have some basic colors(red/white,blue/white.etc))
 -transciption to text
--change font/size
 -other
 
 
