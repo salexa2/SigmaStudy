@@ -127,7 +127,7 @@ class flashcardset:
 
            my_image = customtkinter.CTkImage(light_image=Image.open(r'C:\Users\shana\Documents\SemesterProject321\testing321\widgets\trash-icon-png-9.png', 'r'))
 
-           remove_card = customtkinter.CTkButton(play_frame, text = "🚮",fg_color= "transparent",border_width=0, width = 25, height = 30, command = lambda:self.removeCard(root))
+           #remove_card = customtkinter.CTkButton(play_frame, text = "🚮",fg_color= "transparent",border_width=0, width = 25, height = 30, command = lambda:self.removeCard(root))
            remove_card.place(x = 1180, y = 16 ,anchor="center")
 
            #edit button 
