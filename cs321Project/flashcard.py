@@ -30,10 +30,10 @@ class flashcard:
        self.back_card = back_input
    #prints the front of a card
    def printFront(self):
-       print("front:" + self.front_card +"\n")
+       print("\nfront:", self.front_card)
    #prints the back of a card
    def printBack(self):
-       print("back:" + self.back_card + "\n")
+       print("\nback:", self.back_card)
    #flips the card
    def flip(self, card_frame, state):
        if(state==0):

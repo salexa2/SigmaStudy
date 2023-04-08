@@ -3,8 +3,10 @@ from tkinter import *
 import customtkinter
 from tkinter import filedialog
 from flashcardset import * 
+import gallary 
 from gallary import *
-from SaveAndLoad import *
+
+#from SaveAndLoad import *
 
 
 """
@@ -40,26 +42,33 @@ root.grid_rowconfigure((0, 1, 2), weight=1)
 
 
 #---------------------variables-------------------
-library = []
+
 saveName = "data.json"
+gally = gallary()
+
 
 #-------------------functions-----------------------
 def change_appearance_mode_event( new_appearance_mode: str):
     customtkinter.set_appearance_mode(new_appearance_mode)
-       
+ 
+
 def file_open():
     #gets the video
     root.filename = filedialog.askopenfilename(title="Select Video", filetypes=(("avi files","*.avi"),("mp4 files","*.mp4"), ("txt files", "*.txt")))
     if (len(root.filename) == 0): 
         return None
         
-    #convert the video to a text file named txtfile
+    #convert the video files to a text file named txtfile
 
 
     #Code here  
     
     return root.filename
 
+
+       
+#-------------------------------------------------------FARAZZ IMPLEMENT HERE------------------
+# 
 #opens a text file and displays it in text field.
 def openf(default_text):
    
@@ -70,65 +79,24 @@ def openf(default_text):
          default_text.insert(END,text)
          text_temp.close()
 
-#adds the card to the set.
-def addCard(upload_frame,flashset,front,back):
-    card = flashset.create_a_Card(front,back)
-    flashset.insertCard(card)
-    flashcard_page(upload_frame,flashset)
+def getLink(linkbar, default_text):
 
-#creates an empty set 
-def create_a_set(upload_frame):
-    flashset = flashcardset()
-    flashcard_page(upload_frame,flashset)
-    print("Unit Testing 2.0: Closed Flashcard_page")
-
-def addSet(flashset):
-    global library
-    loadSets()
-    dialog = customtkinter.CTkInputDialog(text="What would you like to name your set?", title= "New FlashCard Set")
-    flashset.set_Name(dialog.get_input())
-    library.append(flashset)
-    SaveAndLoad.save_data(library, saveName);
-    upload_page()
-   
-    #prints out the flash card sets to terminal 
-    print("__________________\n")
-    for x in library:
-        print(x.printAll())
-    print("__________________\n")
+    #linkbar code to text..<inset cide>..... output a text_f - replace none
+    text_f = None
     
+    
+    #pastes the transcript in text box 
+    if(text_f != None):
+         text_temp = open(text_f, 'r')
+         text = text_temp.read()
+         default_text.insert(END,text)
+         text_temp.close()
 
-#loads flashcard sets (called on program launch)
-def loadSets():
-    loader = SaveAndLoad.load_data(saveName);
-    if loader is None:
-        print("no saved data found")
-        return
-    global library
-    library = loader.copy();
- 
+
+
+
+
 #-------------------pages---------------
-
-#opens a flashcard creator.
-def flashcard_page(upload_frame,flashset):
- flash_frame = customtkinter.CTkFrame(upload_frame, width = 550, height = 375, fg_color= "#279400")
- flash_frame.place(x =700,y=100)
-#frontinput, 
- front_card_input= customtkinter.CTkEntry(flash_frame, width= 500,height=50, font = ("Helvetica", 20), placeholder_text = "Enter Term", placeholder_text_color= "#000000")
- front_card_input.place(x = 25,y=15) 
- #backinput 
- back_input = customtkinter.CTkTextbox(flash_frame,width=500,height= 250, font = ("Helvetica", 18))
- back_input.place(x= 25, y=85) 
- back_input.insert(END,"Enter Definition")
- 
- #creates another card, inserts previous card, doesn't insert a card till the "+" button is hit.
- next_button = customtkinter.CTkButton(flash_frame, text= "+", text_color ="#000000", fg_color= "#FFFFFF",hover_color = "#CFCFCF" , corner_radius = 200, width = 30, height = 30, font = ("Helvetica",18), anchor="center", command = lambda: addCard(upload_frame,flashset,front_card_input.get(),back_input.get("0.0","end")))
- next_button.place(x=435, y= 338)
-
- #creates a set
- done_button = customtkinter.CTkButton(flash_frame, text = "✓" , text_color ="#000000", fg_color= "#FFFFFF", hover_color = "#CFCFCF" ,corner_radius = 200, width = 25, height = 30, font = ("Helvetica",18), anchor="center", command = lambda:addSet(flashset))
- done_button.place(x=480, y= 338)
-
 
 
 def upload_page():
@@ -145,27 +113,36 @@ def upload_page():
    upload_file_button = customtkinter.CTkButton(upload_frame, text= "File Upload", fg_color= "#279400", hover_color="#1C6B00", command = lambda:openf(default_text))
    upload_file_button.place(x=100, y=50)
 
-   create_set_button = customtkinter.CTkButton(upload_frame, text= "Create Set", fg_color= "#279400", hover_color="#1C6B00", command = lambda:create_a_set(upload_frame))
+   print("Unit Testing 2.0: Gallary should create a set\n")
+   create_set_button = customtkinter.CTkButton(upload_frame, text= "Create Set", fg_color= "#279400", hover_color="#1C6B00", command = lambda: gally.create_Set(upload_frame))
    create_set_button.place(x=250, y=50)
+
+
+   #CREATE ENTRY BUTTON FOR FARAZZ
+
+
 
    print("Unit Testing 1.0: Upload page: upload page should show\n")
 
 
 def gallary_page():
-   loadSets()
+   gally.loadSets()
+
    gallary_frame = customtkinter.CTkFrame(root, width = 1350, height = 800) 
    gallary_frame.grid(row=0,column = 2, sticky="w")
    upload_label = customtkinter.CTkLabel(gallary_frame, text="This is the Gallary", font=customtkinter.CTkFont(size=20, weight="bold"))
    upload_label.place(x=600,y=0)
-   gal = gallary(gallary_frame,library)
-
-   gal.print_size()
-   if(len(library)>0):
-        gal.display()
+ 
+   print("Unit Testing 3.0: Gallary page: gallary page should show\n")
+   gally.print_size()
+   gally.print_Gal()
+   
+   if(gally.getSize()>0):
+       gally.display(gallary_frame)
    
 
 
-   print("Unit Testing 4.0: Gallary page: gallary page should show\n")
+   
 
 
 # create sidebar frame with widgets
