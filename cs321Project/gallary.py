@@ -49,9 +49,10 @@ class gallary():
             if(count < len(self.library)):
                 gallary_frame = customtkinter.CTkFrame(self.root, width = 100, height = 100)
                 gallary_frame.place(x = posx, y = posy)
+                i.displayPage(gallary_frame,self.root)
                 i.displaySet(gallary_frame,self.root,self.library)
 
-                combobox = customtkinter.CTkOptionMenu(master=gallary_frame, fg_color = "#279400", button_color = "#279400", dropdown_hover_color = "#1C6B00" ,  width = 15, height = 15,values=["Edit", "Delete Set"], command = self.optionmenu_callback)
+                combobox = customtkinter.CTkOptionMenu(master=gallary_frame, fg_color = "#279400", button_color = "#279400", dropdown_hover_color = "#1C6B00" ,  width = 15, height = 15,values=["Edit", "Delete"], command = self.optionmenu_callback)
                 combobox.place(x= 35,y=75)
                 combobox.set("Edit")  # set initial value
               
