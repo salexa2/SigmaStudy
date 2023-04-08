@@ -127,12 +127,12 @@ class flashcardset:
 
           # my_image = customtkinter.CTkImage(light_image=Image.open(r'C:\Users\shana\Documents\SemesterProject321\testing321\widgets\trash-icon-png-9.png', 'r'))
 
-           remove_card = customtkinter.CTkButton(play_frame, text = "🚮",fg_color= "transparent",border_width=0, width = 40, height = 40, command = lambda:self.removeCard(root))
+           remove_card = customtkinter.CTkButton(play_frame, text = "🚮",fg_color= "transparent",border_width=0, width = 25, height = 30, command = lambda:self.removeCard(root))
            remove_card.place(x = 1180, y = 16 ,anchor="center")
 
            #edit button 
 
-       
+          
            self.displayCard(play_frame,self.index)
        
        
@@ -140,7 +140,7 @@ class flashcardset:
      
 
 
-    def displaySet(self,gallary_frame,root):
+    def displayPage(self,gallary_frame,root):
   
          set_label = customtkinter.CTkLabel(gallary_frame, text = self.get_Name(),font=customtkinter.CTkFont(size=16, weight="bold"))
          set_label.place(x = 50, y = 30, anchor = "center")
