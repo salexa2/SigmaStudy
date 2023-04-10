@@ -20,14 +20,20 @@ class gallary():
     column_num = 0 
     #saved name - DO NOT TOUCH THIS
     saveName  = "data.json"
-    # set initial value
+    galframe = None
+    mainr = None
+
+
     #constructor
-    def __init__(self):
-       pass 
+    def __init__(self,root):
+       self.mainr = root
 
     #return gallerys set - a list of lists 
     def returnGal(self):
         return self.lib
+
+    def setLib(self,newlib):
+        self.lib = newlib
 
     #prints the num of sets
     def print_size(self):
@@ -41,13 +47,16 @@ class gallary():
     #call to create a set
     def create_Set(self,upload_frame):
         print("Unit Testing 2.1: Flashcard set created\n")
-        flashset = flashcardset(upload_frame,self)
-        flashset.creating_set_page()
+        flashset = flashcardset(upload_frame)
+        flashset.creating_set_page(self)
        # return
      
      #adds a set to the gallary
     def add_Set(self,flset):
          self.lib.append(flset)
+
+    def remove_Set(self,cardset):
+        self.lib.remove(cardset)
 
     #returns the saveName - DO NOT TOUCH 
     def return_saveN(self):
@@ -61,12 +70,17 @@ class gallary():
         print("__________________\n")
     
 
+    def get_galFrame(self):
+        return self.galframe
 
-     #edit, delete a set, shuffle a ste possibly 
-    def optionmenu_callback(self, choice):
-       print("optionmenu dropdown clicked:", choice)
+    def get_Root(self):
+        return self.mainr
+
+    def set_galFrame(self,frame):
+       self.galframe = frame
 
 
+  
     #displays all the flashcard sets on the gallary page
     def display(self, galf):
         upload_label = customtkinter.CTkLabel(galf, text="This is the Gallary", font=customtkinter.CTkFont(size=20, weight="bold"))
@@ -75,8 +89,7 @@ class gallary():
         posx = 50
         posy = 100
 
-        optionmenu_var = customtkinter.StringVar(value="✍")
-
+        
 
 
         print("Unit Testing 3.1: Gallary: shows all the sets\n")
@@ -87,12 +100,8 @@ class gallary():
             if(count < len(self.lib)):
                 set_frame = customtkinter.CTkFrame(galf, width = 100, height = 100)
                 set_frame.place(x = posx, y = posy)
-                i.displaySet(set_frame,galf)
-                combobox = customtkinter.CTkOptionMenu(set_frame, fg_color = "#279400", button_color = "#279400", dropdown_hover_color = "#1C6B00" , width = 18, height = 18,values=["Edit", "Delete"],font=customtkinter.CTkFont(size=14), command = self.optionmenu_callback, variable = optionmenu_var)
-                combobox.place(x= 27,y=75)
-                combobox.set("✍")  # set initial value
-              
-
+                i.displaySet(set_frame,galf,self)
+               
                 posx+=150
                
             if(posx == 1200):

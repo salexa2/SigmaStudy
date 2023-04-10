@@ -2,7 +2,6 @@
 from tkinter import * 
 import customtkinter
 from tkinter import filedialog
-from flashcardset import * 
 import gallary 
 from gallary import *
 
@@ -10,17 +9,20 @@ from gallary import *
 
 
 """
-BASIC TOD0:
--cancel cards mid creation/click on other tabs (if user hits an x, and there's atleast 1 card in the set, it will ask the user if they're sure they want to cancel, and will close the flashpage)
--remove a card from set
--edit a card from a set
--make a list/gallary of sets and display in gallery
--save the card sets - library holds the list of flshcard sets(chase)
--make it so when a user clicks on a tab, it has the previos data from before the user changed the page(maybe make a boolean of sorts that says the page is active)
--make a button to display the cards (flashcard gallery)
--make the GUI for the cards (maybe have some basic colors(red/white,blue/white.etc))
--transciption to text
--other
+BASIC TOD0: UPDATED (4/9/2023)
+-transciption implementation 
+- Extra features ideas:
+    calander 
+    timer
+    Learning  - quiz, crossword, matching..? show  4 definitions on the left if even number even 3 defin if off, empty entry bars above them , three terms on write, type in the terms, if the terms match the front input then  the user gets points
+    language accessibility ??
+    text to speech on each card
+    blind mode - hot key gallary = 1, to create a set = 2, hot key for front card input = w hot key for back input = s, hot key for done button,  display a set = 3, hot key to read the front card outloud a, hot key to click the card and read the input
+    study plan maker - asks questions, spits out a study plan 
+    Study tips - methods
+    About 
+ 
+
 
 
 
@@ -44,7 +46,7 @@ root.grid_rowconfigure((0, 1, 2), weight=1)
 #---------------------variables-------------------
 
 saveName = "data.json"
-gally = gallary()
+gally = gallary(root)
 
 
 #-------------------functions-----------------------
@@ -67,8 +69,11 @@ def file_open():
 
 
        
-#-------------------------------------------------------FARAZZ IMPLEMENT HERE------------------
-# 
+'''
+-------------------------------------------------------FARAZZ IMPLEMENT HERE--------------------------------
+Use custom tkinter to create an entry box widget to take in your youtbe link , put s button next to it thst wheen clicked, command = getLink()
+in the getLink, implement your code to get the transcript from the link. linkbar is a param = string/value of the entrybox, it is essentially the string of the link so do with it what you will
+'''
 #opens a text file and displays it in text field.
 def openf(default_text):
    
@@ -79,9 +84,18 @@ def openf(default_text):
          default_text.insert(END,text)
          text_temp.close()
 
+#takes in a link to a video, gets a transcript from it, converts it to text - FARAZZ
 def getLink(linkbar, default_text):
 
+    print(linkbar)
+
+
+
     #linkbar code to text..<inset cide>..... output a text_f - replace none
+    #to import and use whatever class do import class name and from classname import * , contact Dai or Chase for assistance
+    ''''
+    Uncomment once you get the textt file of the transcript
+
     text_f = None
     
     
@@ -91,6 +105,7 @@ def getLink(linkbar, default_text):
          text = text_temp.read()
          default_text.insert(END,text)
          text_temp.close()
+    '''
 
 
 
@@ -113,9 +128,17 @@ def upload_page():
    upload_file_button = customtkinter.CTkButton(upload_frame, text= "File Upload", fg_color= "#279400", hover_color="#1C6B00", command = lambda:openf(default_text))
    upload_file_button.place(x=100, y=50)
 
+   #LINK ENTRY - FARAAZ
+   link_entry = customtkinter.CTkEntry(master=upload_frame, placeholder_text="CTkEntry")
+   link_entry.place(x = 250, y =50)
+
+   link_button = customtkinter.CTkButton(upload_frame, text= "Enter", fg_color= "#279400", hover_color="#1C6B00", width = 50, height = 28, command = lambda:getLink(link_entry.get(),default_text))
+   link_button.place(x= 390, y=50)
+   #----------------------
+
    print("Unit Testing 2.0: Gallary should create a set\n")
    create_set_button = customtkinter.CTkButton(upload_frame, text= "Create Set", fg_color= "#279400", hover_color="#1C6B00", command = lambda: gally.create_Set(upload_frame))
-   create_set_button.place(x=250, y=50)
+   create_set_button.place(x=450, y=50)
 
 
    #CREATE ENTRY BUTTON FOR FARAZZ
@@ -132,13 +155,23 @@ def gallary_page():
    gallary_frame.grid(row=0,column = 2, sticky="w")
    upload_label = customtkinter.CTkLabel(gallary_frame, text="This is the Gallary", font=customtkinter.CTkFont(size=20, weight="bold"))
    upload_label.place(x=600,y=0)
+
+   gally.set_galFrame(gallary_frame)
  
+   create_set_button = customtkinter.CTkButton(gallary_frame, text= "Create Set", fg_color= "#279400", hover_color="#1C6B00", command = lambda: gally.create_Set(gallary_frame))
+   create_set_button.place(x=1200, y=10)
+   
+
    print("Unit Testing 3.0: Gallary page: gallary page should show\n")
    gally.print_size()
    gally.print_Gal()
    
    if(gally.getSize()>0):
        gally.display(gallary_frame)
+  # gally.print_Gal()
+
+
+
    
 
 
