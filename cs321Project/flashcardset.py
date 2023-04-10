@@ -85,7 +85,8 @@ class flashcardset:
           prev.configure(state = "Normal") 
            
           self.displayCard(play_f,self.index)
-
+    
+    #helps move to previous card
     def decreaseCount(self, play_f, button, nextb):
         self.index= self.index - 1
         if(self.index == 0):
@@ -97,7 +98,7 @@ class flashcardset:
 
 
            
-    #takes us back to gallary by removing the frame that's displaying hte flashcards and resets index back to 0       
+    #takes us back to gallary by removing the frame that's displaying the flashcards and resets index back to 0       
     def removepframes(self,play_f):
 
         print("Unit Testing 3.n: Gallary: flashcard should be closed \n")
@@ -130,6 +131,7 @@ class flashcardset:
 
          self.displayCard(play_f,self.index)
     
+    #deletes a set 
     def delete_Set(self,setframe,galObject):
         galObject.remove_Set(self)
         setframe.destroy()
@@ -137,7 +139,7 @@ class flashcardset:
         
    
 
-    #helps deletes a set 
+    #delete page 
     def delete_Page(self,galObject,setframe):
         
         print("Testing Testing Case 5.1: Modifying a set  - Set should be deleted")
@@ -154,7 +156,7 @@ class flashcardset:
         no_b = customtkinter.CTkButton(warningframe, text = "no",width = 5,height = 5, border_width=0, hover_color= "#279400", fg_color= "#279400", font=customtkinter.CTkFont(size=10), command = lambda: warningframe.destroy())
         no_b.place(x = 90, y = 85, anchor = "center")
 
-
+    #finalizes and saves changes to set 
     def finalizeChange(self,scrollframe,galObject): 
        print("Unit Testing Case 6.3: Modifying set - finalizing changes")
        for i in self.flashset:
@@ -166,10 +168,7 @@ class flashcardset:
        
 
 
-      
-
-
-
+    #edit card page
     def edit_Page (self,galObject):
          print("Unit Testing Case 6.1: Modifying set - Edit Page should show")
 
@@ -200,7 +199,7 @@ class flashcardset:
         self.flashset.remove(card)
         
 
-         #edit, delete a set, shuffle a ste possibly 
+    #option menu choices for each set 
     def optionmenu_callback(self, choice, galObject,setframe):
    
 

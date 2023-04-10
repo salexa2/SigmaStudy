@@ -20,8 +20,9 @@ class gallary():
     column_num = 0 
     #saved name - DO NOT TOUCH THIS
     saveName  = "data.json"
+    #gallarys main frame
     galframe = None
-    mainr = None
+   
 
 
     #constructor
@@ -55,6 +56,7 @@ class gallary():
     def add_Set(self,flset):
          self.lib.append(flset)
 
+    #removes a set 
     def remove_Set(self,cardset):
         self.lib.remove(cardset)
 
@@ -69,13 +71,11 @@ class gallary():
          print(x.printAll())
         print("__________________\n")
     
-
+    #gets the gallarys main frame
     def get_galFrame(self):
         return self.galframe
-
-    def get_Root(self):
-        return self.mainr
-
+    
+    #sets the gal frame for use later
     def set_galFrame(self,frame):
        self.galframe = frame
 
@@ -109,6 +109,8 @@ class gallary():
                 posy+= 100
             count+=1
         return
+
+
     #loads flashcard sets (called on program launch) --DO NOT TOUCH UNLESS YOU'RE CHASE 
     def loadSets(self):
         loader = SaveAndLoad.load_data(self.saveName);

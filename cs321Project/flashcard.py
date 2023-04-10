@@ -1,23 +1,24 @@
 #creates a flashcard object 
 
-#from turtle import back
-from ast import Lambda
+
+#from ast import Lambda  i commented this out 4/9, if program acts up uncomment it - shadai 
 from tkinter import * 
 import customtkinter
 from SaveAndLoad import *
 
 class flashcard:
  
+   #front card text
    front_card = ""
+   #back card text 
    back_card = ""
+   #helps flip a card
    state = 0
 
-   #when a user edits a card, the attribute will be saved in this entry and text box - edit front and back.
+   #when a user edits a card, the values will be saved in this entry and text box - edit front and back.
    editfront = None
    editback = None
-   #color
-   #setcolor
-   #themes
+  
 
    #gets the front of card
    def getFront(self):
@@ -56,7 +57,7 @@ class flashcard:
        card_frame = customtkinter.CTkButton(root, text_color = "#000000", text = self.getFront(), hover_color="#DBDBDB", fg_color="#FFFFFF",width = 1000,height = 400, command = lambda: self.flip(card_frame,self.state)) 
        card_frame.place(x = 100, y= 100)
 
-
+   #removes this card from a given set 
    def remove (self,fset,galObject,scrollable_page):
        fset.delete_card(self)
        scrollable_page.destroy()
@@ -64,7 +65,7 @@ class flashcard:
        fset.edit_Page(galObject)
        print("Unit Testing Case 6.2: Modifying set - card should be deleted, new edit page should show")
 
-
+   #edits card
    def editCard(self, scrollable_frame,fset,galObject):
         #frontinput, 
                 self.editfront= customtkinter.CTkEntry(scrollable_frame, width= 1000,height=100, font = ("Helvetica", 20), placeholder_text = self.getFront(), placeholder_text_color= "#000000")
@@ -78,7 +79,7 @@ class flashcard:
                 self.del_button = customtkinter.CTkButton(scrollable_frame, text = "Delete", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center" ,command = lambda:self.remove(fset,galObject,scrollable_frame)) #command = lambda:fset.remove(self)
                 self.del_button.pack(side=TOP, anchor=NE)
    
-                #when a user clicks thed one button for edition, the loop will cycle through each card, it uses the setfront and setback function to change the cards current back and front.
+   #saves edited changes 
    def saveEditedCard(self):
        print("Unit Testing 6.4: print saved set")
 
@@ -92,7 +93,7 @@ class flashcard:
          
        print("back: \n", self.editback.get("1.0",END))
        self.setBack(self.editback.get("1.0",END))
-       #self.setFront(editfront.get())
+      
 
    
        

@@ -5,7 +5,7 @@ from tkinter import filedialog
 import gallary 
 from gallary import *
 
-#from SaveAndLoad import *
+
 
 
 """
@@ -168,7 +168,7 @@ def gallary_page():
    
    if(gally.getSize()>0):
        gally.display(gallary_frame)
-  # gally.print_Gal()
+
 
 
 
