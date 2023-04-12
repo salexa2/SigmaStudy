@@ -38,9 +38,9 @@ root.title("Sigma Study")
 root.geometry(f"{1100}x{580}")
 
 # configure grid layout (4x4)
-root.grid_columnconfigure(1, weight=1)
-root.grid_columnconfigure((2, 3), weight=0)
-root.grid_rowconfigure((0, 1, 2), weight=1)
+#root.grid_columnconfigure(1, weight=1)
+#root.grid_columnconfigure((2, 3), weight=0)
+#root.grid_rowconfigure((0, 1, 2), weight=1)
 
 month_test = month()
 weekday = month_test.weekDay(2023, 4, 10)
@@ -113,7 +113,8 @@ def getLink(linkbar, default_text):
 
 def slider_event(value):
     customtkinter.deactivate_automatic_dpi_awareness()
-    customtkinter.set_window_scaling(value)
+    #customtkinter.set_window_scaling(value)
+    customtkinter.set_widget_scaling(value)  
 
 #-------------------pages---------------
 
@@ -121,7 +122,7 @@ def slider_event(value):
 def upload_page():
    
    upload_frame = customtkinter.CTkFrame(root, width = 1350, height = 800)
-   upload_frame.grid(row=0,column = 1, sticky="w")
+   upload_frame.place(x = 200, y = 0)
    #delete later 
    upload_label = customtkinter.CTkLabel(upload_frame, text="This is the Upload Menu", font=customtkinter.CTkFont(size=20, weight="bold"))
    upload_label.place(x=600,y=0)
@@ -156,14 +157,14 @@ def gallary_page():
    gally.loadSets()
 
    gallary_frame = customtkinter.CTkFrame(root, width = 1350, height = 800) 
-   gallary_frame.grid(row=0,column = 2, sticky="w")
+   gallary_frame.place(x = 200, y = 0)
    upload_label = customtkinter.CTkLabel(gallary_frame, text="This is the Gallary", font=customtkinter.CTkFont(size=20, weight="bold"))
    upload_label.place(x=600,y=0)
 
    gally.set_galFrame(gallary_frame)
  
    create_set_button = customtkinter.CTkButton(gallary_frame, text= "Create Set", fg_color= "#279400", hover_color="#1C6B00", command = lambda: gally.create_Set(gallary_frame))
-   create_set_button.place(x=1200, y=10)
+   create_set_button.place(x=10, y=10)
    
 
    print("Unit Testing 3.0: Gallary page: gallary page should show\n")
@@ -183,36 +184,35 @@ def gallary_page():
 
 
 # create sidebar frame with widgets
-sidebar_frame = customtkinter.CTkFrame(root, width=140, corner_radius=0)
-sidebar_frame.grid(row=0, column=0, rowspan=5, sticky="nsew")
-sidebar_frame.grid_rowconfigure(5, weight=1)
+sidebar_frame = customtkinter.CTkFrame(root, width=200, height = 800, corner_radius=0)
+sidebar_frame.place(x = 0, y = 0)
+#sidebar_frame.grid_rowconfigure(5, weight=1)
 
 
 #Menu Label 
 logo_label = customtkinter.CTkLabel(sidebar_frame, text="MENU", font=customtkinter.CTkFont(size=20, weight="bold"))
-logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
+logo_label.place(x = 60, y =10)
 
 sidebar_button_1 = customtkinter.CTkButton(sidebar_frame, text= "Upload", fg_color= "#279400", hover_color="#1C6B00", command= upload_page)
-sidebar_button_1.grid(row=1, column=0, padx=20, pady=10)
+sidebar_button_1.place(x = 20, y = 50)
 
 sidebar_button_2 = customtkinter.CTkButton(sidebar_frame, text= "Flashcard Gallary",fg_color= "#279400",hover_color="#1C6B00", command=gallary_page)
-sidebar_button_2.grid(row=2, column=0, padx=20, pady=10)
+sidebar_button_2.place(x = 20, y = 100)
 
 sidebar_button_3 = customtkinter.CTkButton(sidebar_frame, text= "Calander",fg_color= "#279400",hover_color="#1C6B00")
-sidebar_button_3.grid(row=3, column=0, padx=20, pady=10)
+sidebar_button_3.place(x = 20, y = 150)
 
 sidebar_button_4 = customtkinter.CTkButton(sidebar_frame, text= "Extra features...",fg_color= "#279400",hover_color="#1C6B00")
-sidebar_button_4.grid(row=4, column=0, padx=20, pady=10)
+sidebar_button_4.place(x = 20, y = 200)
 
 #Appearance mode change 
 appearance_mode_label = customtkinter.CTkLabel(sidebar_frame, text="Appearance Mode:",  anchor="w")
-appearance_mode_label.grid(row=6, column=0, padx=20, pady=(10, 0))
+appearance_mode_label.place(x = 20, y = 700)
 appearance_mode_optionemenu = customtkinter.CTkOptionMenu(sidebar_frame,fg_color= "#279400", button_color= "#279400",button_hover_color= "#1C6B00", values=["Light", "Dark", "Default"],command=change_appearance_mode_event)
-appearance_mode_optionemenu.grid(row=7, column=0, padx=20, pady=(10, 10))
+appearance_mode_optionemenu.place(x = 20, y = 725)
 
-slider = customtkinter.CTkSlider(master=root, from_=0.2, to=3, command=  slider_event )
-slider.grid(row = 8,column=0, padx=20, pady=(10, 10) )
-
+slider = customtkinter.CTkSlider(master=sidebar_frame, from_=0.2, to=2, command=  slider_event )
+slider.place(x = 0, y = 760)
 
 root.mainloop()
       
