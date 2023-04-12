@@ -4,8 +4,8 @@ import customtkinter
 from tkinter import filedialog
 import gallary 
 from gallary import *
-
-
+import month
+from month import * 
 
 
 """
@@ -42,6 +42,9 @@ root.grid_columnconfigure(1, weight=1)
 root.grid_columnconfigure((2, 3), weight=0)
 root.grid_rowconfigure((0, 1, 2), weight=1)
 
+month_test = month()
+weekday = month_test.weekDay(2023, 4, 10)
+print("the day of week is: ", weekday)
 
 #---------------------variables-------------------
 
@@ -108,8 +111,9 @@ def getLink(linkbar, default_text):
     '''
 
 
-
-
+def slider_event(value):
+    customtkinter.deactivate_automatic_dpi_awareness()
+    customtkinter.set_window_scaling(value)
 
 #-------------------pages---------------
 
@@ -117,7 +121,7 @@ def getLink(linkbar, default_text):
 def upload_page():
    
    upload_frame = customtkinter.CTkFrame(root, width = 1350, height = 800)
-   upload_frame.grid(row=0,column = 2, sticky="w")
+   upload_frame.grid(row=0,column = 1, sticky="w")
    #delete later 
    upload_label = customtkinter.CTkLabel(upload_frame, text="This is the Upload Menu", font=customtkinter.CTkFont(size=20, weight="bold"))
    upload_label.place(x=600,y=0)
@@ -180,8 +184,8 @@ def gallary_page():
 
 # create sidebar frame with widgets
 sidebar_frame = customtkinter.CTkFrame(root, width=140, corner_radius=0)
-sidebar_frame.grid(row=0, column=0, rowspan=4, sticky="nsew")
-sidebar_frame.grid_rowconfigure(4, weight=1)
+sidebar_frame.grid(row=0, column=0, rowspan=5, sticky="nsew")
+sidebar_frame.grid_rowconfigure(5, weight=1)
 
 
 #Menu Label 
@@ -194,14 +198,21 @@ sidebar_button_1.grid(row=1, column=0, padx=20, pady=10)
 sidebar_button_2 = customtkinter.CTkButton(sidebar_frame, text= "Flashcard Gallary",fg_color= "#279400",hover_color="#1C6B00", command=gallary_page)
 sidebar_button_2.grid(row=2, column=0, padx=20, pady=10)
 
-sidebar_button_3 = customtkinter.CTkButton(sidebar_frame, text= "Extra features...",fg_color= "#279400",hover_color="#1C6B00")
+sidebar_button_3 = customtkinter.CTkButton(sidebar_frame, text= "Calander",fg_color= "#279400",hover_color="#1C6B00")
 sidebar_button_3.grid(row=3, column=0, padx=20, pady=10)
+
+sidebar_button_4 = customtkinter.CTkButton(sidebar_frame, text= "Extra features...",fg_color= "#279400",hover_color="#1C6B00")
+sidebar_button_4.grid(row=4, column=0, padx=20, pady=10)
 
 #Appearance mode change 
 appearance_mode_label = customtkinter.CTkLabel(sidebar_frame, text="Appearance Mode:",  anchor="w")
-appearance_mode_label.grid(row=5, column=0, padx=20, pady=(10, 0))
+appearance_mode_label.grid(row=6, column=0, padx=20, pady=(10, 0))
 appearance_mode_optionemenu = customtkinter.CTkOptionMenu(sidebar_frame,fg_color= "#279400", button_color= "#279400",button_hover_color= "#1C6B00", values=["Light", "Dark", "Default"],command=change_appearance_mode_event)
-appearance_mode_optionemenu.grid(row=6, column=0, padx=20, pady=(10, 10))
+appearance_mode_optionemenu.grid(row=7, column=0, padx=20, pady=(10, 10))
+
+slider = customtkinter.CTkSlider(master=root, from_=0.2, to=3, command=  slider_event )
+slider.grid(row = 8,column=0, padx=20, pady=(10, 10) )
+
 
 root.mainloop()
       
