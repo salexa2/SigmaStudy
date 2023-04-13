@@ -15,7 +15,7 @@ BASIC TOD0: UPDATED (4/9/2023)
 - Extra features ideas:
     calander 
     timer
-    Learning  - quiz, crossword, matching..? show  4 definitions on the left if even number even 3 defin if off, empty entry bars above them , three terms on write, type in the terms, if the terms match the front input then  the user gets points
+    Learning  - quiz, matching..? show  4 definitions on the left if even number even 3 defin if off, empty entry bars above them , three terms on write, type in the terms, if the terms match the front input then  the user gets points
     language accessibility ??
     text to speech on each card
     blind mode - hot key gallary = 1, to create a set = 2, hot key for front card input = w hot key for back input = s, hot key for done button,  display a set = 3, hot key to read the front card outloud a, hot key to click the card and read the input
@@ -38,10 +38,12 @@ root = customtkinter.CTk()
 root.title("Sigma Study")
 root.geometry(f"{1350}x{700}")
 
+
 # configure grid layout (4x4)
-#root.grid_columnconfigure(1, weight=1)
-#root.grid_columnconfigure((2, 3), weight=0)
-#root.grid_rowconfigure((0, 1, 2), weight=1)
+root.grid_columnconfigure(0, weight=0)
+root.grid_columnconfigure(1, weight=3)
+                
+
 
 
 
@@ -124,8 +126,8 @@ def slider_event(value):
 
 def upload_page():
    
-   upload_frame = customtkinter.CTkFrame(root, width = 1350, height = 800)
-   upload_frame.place(x = 205, y = 0)
+   upload_frame = customtkinter.CTkFrame(root, width = 1150, height =700)
+   upload_frame.grid(column = 1,row =0 ,sticky = "NSEW",padx=5)
    #delete later 
    upload_label = customtkinter.CTkLabel(upload_frame, text="This is the Upload Menu", font=customtkinter.CTkFont(size=20, weight="bold"))
    upload_label.place(x=600,y=0)
@@ -159,8 +161,8 @@ def upload_page():
 def gallary_page():
    gally.loadSets()
 
-   gallary_frame = customtkinter.CTkFrame(root, width = 1350, height = 800) 
-   gallary_frame.place(x = 205, y = 0)
+   gallary_frame = customtkinter.CTkFrame(root, width = 1150, height = 700) 
+   gallary_frame.grid(column = 1,row =0 ,sticky = "NSEW",padx=5)
    upload_label = customtkinter.CTkLabel(gallary_frame, text="This is the Gallary", font=customtkinter.CTkFont(size=20, weight="bold"))
    upload_label.place(x=600,y=0)
 
@@ -179,8 +181,8 @@ def gallary_page():
 
 
 def calander_page():
-     calander_frame = customtkinter.CTkFrame(root, width = 1350, height = 800) 
-     calander_frame.place(x = 205, y = 0)
+     calander_frame = customtkinter.CTkFrame(root, width = 1150, height = 700) 
+     calander_frame.grid(column = 1,row =0 ,sticky = "NSEW",padx=5)
      calander_label = customtkinter.CTkLabel(calander_frame, text="This is the Calander", font=customtkinter.CTkFont(size=20, weight="bold"))
      calander_label.place(x=600,y=0)
 
@@ -215,7 +217,7 @@ def calander_page():
 
 # create sidebar frame with widgets
 sidebar_frame = customtkinter.CTkFrame(root, width=200, height = 800, corner_radius=0)
-sidebar_frame.place(x = 0, y = 0)
+sidebar_frame.grid(column =0, row=0, sticky = "W")
 #sidebar_frame.grid_rowconfigure(5, weight=1)
 
 
@@ -243,6 +245,7 @@ appearance_mode_optionemenu.place(x = 20, y = 725)
 
 slider = customtkinter.CTkSlider(master=sidebar_frame, from_=0.2, to=2, command=  slider_event )
 slider.place(x = 0, y = 760)
+
 
 root.mainloop()
       
