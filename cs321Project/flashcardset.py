@@ -251,7 +251,7 @@ class flashcardset:
          play_b.place(x = 16, y = 85, anchor = "center")
          combobox = customtkinter.CTkOptionMenu(set_frame, fg_color = "#279400",  button_color = "#279400", dropdown_hover_color = "#1C6B00" , width = 18, height = 19,values=["Edit", "Delete", "Add"], font=customtkinter.CTkFont(size=12), command = lambda choice: self.optionmenu_callback(choice,galObject,set_frame), variable = optionmenu_var)
          combobox.place(x= 33,y=75)
-         combobox.set("✍")  # set initial value
+       
               
 
          return

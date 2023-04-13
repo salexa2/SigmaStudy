@@ -6,6 +6,7 @@ import gallary
 from gallary import *
 import month
 from month import * 
+import datetime
 
 
 """
@@ -35,22 +36,24 @@ customtkinter.set_default_color_theme("green")  # Themes: "blue" (standard), "gr
  # configure window
 root = customtkinter.CTk() 
 root.title("Sigma Study")
-root.geometry(f"{1100}x{580}")
+root.geometry(f"{1350}x{700}")
 
 # configure grid layout (4x4)
 #root.grid_columnconfigure(1, weight=1)
 #root.grid_columnconfigure((2, 3), weight=0)
 #root.grid_rowconfigure((0, 1, 2), weight=1)
 
-month_test = month()
-weekday = month_test.weekDay(2023, 4, 10)
-print("the day of week is: ", weekday)
+
 
 #---------------------variables-------------------
 
 saveName = "data.json"
-gally = gallary(root)
+current_time = datetime.datetime.now()
 
+
+#----------------Object-------------------
+gally = gallary(root)
+curr_month = month(current_time.month)
 
 #-------------------functions-----------------------
 def change_appearance_mode_event( new_appearance_mode: str):
@@ -122,7 +125,7 @@ def slider_event(value):
 def upload_page():
    
    upload_frame = customtkinter.CTkFrame(root, width = 1350, height = 800)
-   upload_frame.place(x = 200, y = 0)
+   upload_frame.place(x = 205, y = 0)
    #delete later 
    upload_label = customtkinter.CTkLabel(upload_frame, text="This is the Upload Menu", font=customtkinter.CTkFont(size=20, weight="bold"))
    upload_label.place(x=600,y=0)
@@ -157,7 +160,7 @@ def gallary_page():
    gally.loadSets()
 
    gallary_frame = customtkinter.CTkFrame(root, width = 1350, height = 800) 
-   gallary_frame.place(x = 200, y = 0)
+   gallary_frame.place(x = 205, y = 0)
    upload_label = customtkinter.CTkLabel(gallary_frame, text="This is the Gallary", font=customtkinter.CTkFont(size=20, weight="bold"))
    upload_label.place(x=600,y=0)
 
@@ -175,6 +178,33 @@ def gallary_page():
        gally.display(gallary_frame)
 
 
+def calander_page():
+     calander_frame = customtkinter.CTkFrame(root, width = 1350, height = 800) 
+     calander_frame.place(x = 205, y = 0)
+     calander_label = customtkinter.CTkLabel(calander_frame, text="This is the Calander", font=customtkinter.CTkFont(size=20, weight="bold"))
+     calander_label.place(x=600,y=0)
+
+     curr_month.setMonthFrame(calander_frame)
+
+
+     curr_month.checkMonth()
+  
+     #defaut
+     default_weekday =  curr_month.weekDay(current_time.year,current_time.month,1)
+     print("the first of the default month lies on a ", default_weekday)
+
+
+
+     optionmenu_var = customtkinter.StringVar(value="April")
+     #display month 
+     monthmenu = customtkinter.CTkOptionMenu(calander_frame, fg_color = "#279400",  button_color = "#279400", dropdown_hover_color = "#1C6B00" , width = 40,
+     height = 25,values=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+     font=customtkinter.CTkFont(size=20), command = lambda choice: curr_month.setMonth(choice), variable = optionmenu_var)
+     monthmenu.place(x = 500, y = 50)
+
+
+
+    
 
 
    
@@ -199,7 +229,7 @@ sidebar_button_1.place(x = 20, y = 50)
 sidebar_button_2 = customtkinter.CTkButton(sidebar_frame, text= "Flashcard Gallary",fg_color= "#279400",hover_color="#1C6B00", command=gallary_page)
 sidebar_button_2.place(x = 20, y = 100)
 
-sidebar_button_3 = customtkinter.CTkButton(sidebar_frame, text= "Calander",fg_color= "#279400",hover_color="#1C6B00")
+sidebar_button_3 = customtkinter.CTkButton(sidebar_frame, text= "Calander",fg_color= "#279400",hover_color="#1C6B00",command= calander_page)
 sidebar_button_3.place(x = 20, y = 150)
 
 sidebar_button_4 = customtkinter.CTkButton(sidebar_frame, text= "Extra features...",fg_color= "#279400",hover_color="#1C6B00")
