@@ -53,7 +53,7 @@ class month():
          for i in self.week:
             self.week_xpos.append(posx)
             print("tempx\n", posx)
-            day_label = customtkinter.CTkLabel(frame, text=i[:1], font=customtkinter.CTkFont(size=25, weight="bold"))
+            day_label = customtkinter.CTkLabel(frame, text=i[:1], text_color = "#FFFFFF", font=customtkinter.CTkFont(size=25,  weight="bold"))
             day_label.place(x = posx, y =posy)
             posx = posx + 145
 

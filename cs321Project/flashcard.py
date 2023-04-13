@@ -68,13 +68,13 @@ class flashcard:
    #edits card
    def editCard(self, scrollable_frame,fset,galObject):
         #frontinput, 
-                self.editfront= customtkinter.CTkEntry(scrollable_frame, width= 1000,height=100, font = ("Helvetica", 20), placeholder_text = self.getFront(), placeholder_text_color= "#000000")
-                self.editfront.pack(side=TOP, anchor=NW)
+                self.editfront= customtkinter.CTkEntry(scrollable_frame, width= 750,height=100, font = ("Helvetica", 20), placeholder_text = self.getFront(), placeholder_text_color= "#000000")
+                self.editfront.pack(side=TOP, anchor=N)
                 self.editfront
 
                 #backinput 
-                self.editback = customtkinter.CTkTextbox(scrollable_frame,width=1001,height= 100, font = ("Helvetica", 18))
-                self.editback.pack(side=TOP, anchor=NW)
+                self.editback = customtkinter.CTkTextbox(scrollable_frame,width=750,height= 100, font = ("Helvetica", 18))
+                self.editback.pack(side=TOP, anchor=N)
                 self.editback.insert(END,self.getBack())
                 self.del_button = customtkinter.CTkButton(scrollable_frame, text = "Delete", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center" ,command = lambda:self.remove(fset,galObject,scrollable_frame)) #command = lambda:fset.remove(self)
                 self.del_button.pack(side=TOP, anchor=NE)

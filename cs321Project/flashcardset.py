@@ -291,20 +291,23 @@ class flashcardset:
          print("Unit Testing 2.2: Flashcard Page should show\n")
      
         #frontinput, 
-         front_card_input= customtkinter.CTkEntry(self.flash_frame, width= 500,height=50, font = ("Helvetica", 20), placeholder_text = "Enter Term", placeholder_text_color= "#000000")
+         front_card_input= customtkinter.CTkEntry(self.flash_frame, width= 500,height=50,  font = ("Helvetica", 20), placeholder_text = "Enter Term")
          front_card_input.place(x = 25,y=15) 
          #backinput 
-         back_input = customtkinter.CTkTextbox(self.flash_frame,width=500,height= 250, font = ("Helvetica", 18))
+         back_input = customtkinter.CTkTextbox(self.flash_frame,width=500,height= 250,  font = ("Helvetica", 18))
          back_input.place(x= 25, y=85) 
          back_input.insert(END,"Enter Definition")
  
          #creates another card, inserts previous card, doesn't insert a card till the "+" button is hit.
-         next_button = customtkinter.CTkButton(self.flash_frame, text= "+", text_color ="#000000", fg_color= "#FFFFFF",hover_color = "#CFCFCF" , corner_radius = 200, width = 30, height = 30, font = ("Helvetica",18), anchor="center", command = lambda:self.create_a_Card(front_card_input.get(), back_input.get("1.0",END),galObject))
-         next_button.place(x=435, y= 338)
+         next_button = customtkinter.CTkButton(self.flash_frame, text= "➕", text_color ="#000000", fg_color= "#FFFFFF",hover_color = "#CFCFCF" , corner_radius = 200, width = 30, height = 30, font = ("Helvetica",18), anchor="center", command = lambda:self.create_a_Card(front_card_input.get(), back_input.get("1.0",END),galObject))
+         next_button.place(x=420, y= 338)
 
          #creates a set
-         done_button = customtkinter.CTkButton(self.flash_frame, text = "✓" , text_color ="#000000", fg_color= "#FFFFFF", hover_color = "#CFCFCF" ,corner_radius = 200, width = 25, height = 30, font = ("Helvetica",18), anchor="center", command = lambda: self.addtoGal(galObject))
+         done_button = customtkinter.CTkButton(self.flash_frame, text = "✔️" , text_color ="#000000", fg_color= "#FFFFFF", hover_color = "#CFCFCF" ,corner_radius = 200, width = 25, height = 30, font = ("Helvetica",18), anchor="center", command = lambda: self.addtoGal(galObject))
          done_button.place(x=480, y= 338)
+
+         cancel_button = customtkinter.CTkButton(self.flash_frame, text= "❌", text_color ="#FFFFFF", fg_color= "transparent" , corner_radius = 200, width = 30, height = 30, font = ("Helvetica",18), anchor="center", command = lambda:self.flash_frame.destroy())
+         cancel_button.place(x=5, y= 338)
 
 
 

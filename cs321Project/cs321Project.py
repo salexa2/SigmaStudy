@@ -137,7 +137,7 @@ def upload_page():
    upload_file_button.place(x=100, y=50)
 
    #LINK ENTRY - FARAAZ
-   link_entry = customtkinter.CTkEntry(master=upload_frame, placeholder_text="CTkEntry")
+   link_entry = customtkinter.CTkEntry(master=upload_frame, placeholder_text="Youtube Link")
    link_entry.place(x = 250, y =50)
 
    link_button = customtkinter.CTkButton(upload_frame, text= "Enter", fg_color= "#279400", hover_color="#1C6B00", width = 50, height = 28, command = lambda:getLink(link_entry.get(),default_text))
