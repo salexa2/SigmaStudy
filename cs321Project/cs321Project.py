@@ -168,8 +168,13 @@ def gallary_page():
 
    gally.set_galFrame(gallary_frame)
  
+   #BUTTON TO CREATE NEW SET IN GALLERY
    create_set_button = customtkinter.CTkButton(gallary_frame, text= "Create Set", fg_color= "#279400", hover_color="#1C6B00", command = lambda: gally.create_Set(gallary_frame))
    create_set_button.place(x=10, y=10)
+
+   #BUTTON TO CLEAR ALL SETS
+   create_clear_button = customtkinter.CTkButton(gallary_frame, text= "Clear All Sets", fg_color= "#279400", hover_color="#1C6B00", command = lambda: gally.clearSets())
+   create_clear_button.place(x=10, y=750)
    
 
    print("Unit Testing 3.0: Gallary page: gallary page should show\n")
@@ -243,8 +248,8 @@ appearance_mode_label.place(x = 20, y = 700)
 appearance_mode_optionemenu = customtkinter.CTkOptionMenu(sidebar_frame,fg_color= "#279400", button_color= "#279400",button_hover_color= "#1C6B00", values=["Light", "Dark", "Default"],command=change_appearance_mode_event)
 appearance_mode_optionemenu.place(x = 20, y = 725)
 
-slider = customtkinter.CTkSlider(master=sidebar_frame, from_=0.2, to=2, command=  slider_event )
-slider.place(x = 0, y = 760)
+#slider = customtkinter.CTkSlider(master=sidebar_frame, from_=0.2, to=2, command=  slider_event )
+#slider.place(x = 0, y = 760)
 
 
 root.mainloop()

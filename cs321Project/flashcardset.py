@@ -182,7 +182,7 @@ class flashcardset:
          logo_label.pack()
 
          
-            
+        
             
          for i in self.flashset:
 
@@ -190,9 +190,20 @@ class flashcardset:
                divider = customtkinter.CTkLabel(master = scrollable_frame, text="___________________________________________________________________________________________________________________________________________________________________________________________", font=customtkinter.CTkFont(size=20, weight="bold"))
                divider.pack()
         
+
+         addCard_button = customtkinter.CTkButton(scrollable_frame, text = "Add Card", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: add_Card() )
+         addCard_button.pack(side=LEFT)
+
          doneEdit_button = customtkinter.CTkButton(scrollable_frame, text = "Done", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: self.finalizeChange(scrollframe,galObject) )
          doneEdit_button.pack(side=RIGHT)
 
+         def add_Card():
+             print("Adding Card to edit page")
+             newCard = flashcard()
+             self.flashset.append(newCard)
+             newCard.editCard(scrollable_frame,self,galObject)
+             divider = customtkinter.CTkLabel(master = scrollable_frame, text="___________________________________________________________________________________________________________________________________________________________________________________________", font=customtkinter.CTkFont(size=20, weight="bold"))
+             divider.pack()
 
     #deletes a flashcard
     def delete_card(self,card):
@@ -206,36 +217,7 @@ class flashcardset:
         if(choice == "Edit"):  
             print("Unit Testing Case 6.0: Modifying set - Edit")
             self.edit_Page(galObject)
-        #ADD A CARD TO THE SET ------------CHASE---------------
-        if(choice == "Add"):
-            '''
-            Directions: CHASE
-                 -create a temp new flashcardset 
-                 -copy and create a function pahge similat to the creating_card_page at the bottom but change the command for the done button which
-                  uses a for loop to cycle through this new set and {manually adds it to this set using self.append(i)}
-                  - call the newly created function from the temp flashcard set 
-                  -destroy the flashfr
-                  -call the load line 
-
-                  - temp.adding_card_page(galObject,self)
-                  -load line 
-                  - def addimg_card_page(self,galObject):
-                      same as creating but have the done button call adding_card and that should work..?
-                  - def adding_card(self,galObject,otherset):
-                    for i in flshset:
-                       otherset.append(i)
-                    self.flash_frame.destroy()
-                    
-
-                       
-                     
-                  
-
-                  
-     
-            '''
-            pass
-
+       
         if(choice == "Delete"):
             print("Unit Testing Case 5.0: Modifying a set  - Delete a set")
             self.delete_Page(galObject,setframe)
@@ -249,7 +231,7 @@ class flashcardset:
          set_label.place(x = 50, y = 30, anchor = "center")
          play_b = customtkinter.CTkButton(set_frame, text = "▶️",width = 3,height = 3, hover_color= "#279400", fg_color= "transparent", font=customtkinter.CTkFont(size=12), command = lambda: self.play_Page(galf))
          play_b.place(x = 16, y = 85, anchor = "center")
-         combobox = customtkinter.CTkOptionMenu(set_frame, fg_color = "#279400",  button_color = "#279400", dropdown_hover_color = "#1C6B00" , width = 18, height = 19,values=["Edit", "Delete", "Add"], font=customtkinter.CTkFont(size=12), command = lambda choice: self.optionmenu_callback(choice,galObject,set_frame), variable = optionmenu_var)
+         combobox = customtkinter.CTkOptionMenu(set_frame, fg_color = "#279400",  button_color = "#279400", dropdown_hover_color = "#1C6B00" , width = 18, height = 19,values=["Edit", "Delete"], font=customtkinter.CTkFont(size=12), command = lambda choice: self.optionmenu_callback(choice,galObject,set_frame), variable = optionmenu_var)
          combobox.place(x= 33,y=75)
        
               
@@ -285,7 +267,6 @@ class flashcardset:
         self.flash_frame.destroy()
         self.printAll()
         
-
     #UI for creating a new set 
     def creating_set_page(self, galObject):
          print("Unit Testing 2.2: Flashcard Page should show\n")
@@ -309,5 +290,4 @@ class flashcardset:
          cancel_button = customtkinter.CTkButton(self.flash_frame, text= "❌", text_color ="#FFFFFF", fg_color= "transparent" , corner_radius = 200, width = 30, height = 30, font = ("Helvetica",18), anchor="center", command = lambda:self.flash_frame.destroy())
          cancel_button.place(x=5, y= 338)
 
-
-
+ 

@@ -68,7 +68,7 @@ class flashcard:
    #edits card
    def editCard(self, scrollable_frame,fset,galObject):
         #frontinput, 
-                self.editfront= customtkinter.CTkEntry(scrollable_frame, width= 750,height=100, font = ("Helvetica", 20), placeholder_text = self.getFront(), placeholder_text_color= "#000000")
+                self.editfront = customtkinter.CTkEntry(scrollable_frame, width= 750,height=100, font = ("Helvetica", 20), placeholder_text = self.getFront(), placeholder_text_color= "#000000")
                 self.editfront.pack(side=TOP, anchor=N)
                 self.editfront
 

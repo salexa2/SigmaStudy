@@ -51,7 +51,7 @@ class gallary():
         flashset = flashcardset(upload_frame)
         flashset.creating_set_page(self)
        # return
-     
+
      #adds a set to the gallary
     def add_Set(self,flset):
          self.lib.append(flset)
@@ -119,6 +119,10 @@ class gallary():
             return
        
         self.lib = loader.copy();
+
+    def clearSets(self):
+        self.lib = []
+        SaveAndLoad.save_data(self.lib,self.saveName)
 
 
 
