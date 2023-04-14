@@ -172,7 +172,7 @@ class flashcardset:
     def edit_Page (self,galObject):
          print("Unit Testing Case 6.1: Modifying set - Edit Page should show")
 
-         scrollframe = customtkinter.CTkFrame(galObject.get_galFrame(), width = 1300, height = 700) 
+         scrollframe = customtkinter.CTkFrame(galObject.get_galFrame(), width = 1300, height = 750) 
          scrollframe.place(x = 0, y= 0)
 
          scrollable_frame = customtkinter.CTkScrollableFrame(master=scrollframe, width=1200, height=700)

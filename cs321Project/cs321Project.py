@@ -36,7 +36,7 @@ customtkinter.set_default_color_theme("green")  # Themes: "blue" (standard), "gr
  # configure window
 root = customtkinter.CTk() 
 root.title("Sigma Study")
-root.geometry(f"{1350}x{700}")
+root.geometry(f"{1500}x{800}")
 
 
 # configure grid layout (4x4)
