@@ -1,5 +1,6 @@
 ﻿import tkinter 
 from tkinter import * 
+from minimalistic import extract_video_id, get_transcript, save_transcript_to_file
 import customtkinter
 from tkinter import filedialog
 import gallary 
@@ -94,8 +95,17 @@ def openf(default_text):
 
 #takes in a link to a video, gets a transcript from it, converts it to text - FARAZZ
 def getLink(linkbar, default_text):
-
-    print(linkbar)
+    video_id = extract_video_id(linkbar)
+    if video_id:
+        transcript = get_transcript(video_id)
+        if transcript:
+            save_transcript_to_file(transcript, "transcript.txt")
+            default_text.delete('1.0', END)
+            default_text.insert(END, transcript)
+        else:
+            print("Could not get the transcript")
+    else:
+        print("Invalid YouTube URL")
 
 
 
