@@ -23,9 +23,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="cs321Project.py" />
+    <Compile Include="day.py" />
     <Compile Include="flashcard.py" />
     <Compile Include="flashcardset.py" />
     <Compile Include="gallary.py" />
+    <Compile Include="minimalistic.py" />
+    <Compile Include="month.py" />
     <Compile Include="SaveAndLoad.py" />
     <Compile Include="testing321.py" />
   </ItemGroup>
