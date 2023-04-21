@@ -283,9 +283,7 @@ class month():
         print("the 1 of the set month starts on:", self.dayStart)
 
            
-       
-       
-       
+        
         print("The month is now:")
         self.checkMonth()
 

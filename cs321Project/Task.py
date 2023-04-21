@@ -29,12 +29,8 @@ class Task():
     timesaWeek = 0
     maxHours = float(0)
     position  = 0 #before after, inbetween
-    taskframe = None
+    taskFrame = None
 
-   
-   
-    #morningstart
-   
    
     def __init__(self,name,weekd,Ttype,start,end,times,maxH,dayType,pos):
      print("task created")
@@ -74,13 +70,13 @@ class Task():
 
      if(self.taskType == 0):
          
-         print('timeeeeeee', self.startTime.hour)
+        # print('timeeeeeee', self.startTime.hour)
          if(int(self.startTime.hour)>=12 and int(self.startTime.hour < 17)):
              self.dayType = 1
-             print ("day type is",  self.dayType )
+            # print ("day type is",  self.dayType )
          elif(int(self.startTime.hour>=17)):
              self.dayType = 2
-             print ("day type is",  self.dayType )
+             #print ("day type is",  self.dayType )
      else:
          self.dayType = int(dayType)
       
@@ -92,8 +88,8 @@ class Task():
            
     def returnPos(self):
         return self.position
-    
-
+    def setPos(self,pos):
+        self.position = pos
     def printTask(self):
         if(self.taskType == 0):
             print("Task name:", self.taskName)
@@ -145,12 +141,10 @@ class Task():
     def setEndTime(self,eTime):
         self.endTime = eTime
         #military time 
-    def clean(self,objectf):
-         objectf.destroy()
-    def delete_frame(self,frame):
-        frame.destroy()
+
     def getFrame(self):
         return self.tempFrame
+
     def taskPage(self,frame):
         hours = self.startTime.hour 
         hourE = self.endTime.hour
@@ -163,6 +157,8 @@ class Task():
           if self.startTime.hour  == 12:
            hours = 12
         else:
+            if self.startTime.hour  == 0:
+             hours = 12
             cycle = "am"
         
 
@@ -176,17 +172,22 @@ class Task():
              hourE = 12
             cycle2 = "am"
         
-        mins = str(self.getStartTime().minute)
-        mine = str(self.getEndTime().minute)
-        minsstr = ""
-        minestr = ""
+        mins = self.getStartTime().minute
+        mine = self.getEndTime().minute
+        minsstr = str(self.getStartTime().minute)
+        minestr = str(self.getEndTime().minute)
 
-        #if(mins == 0):
-           # minsstr  = "00"
+        
+        if(mins == 0):
+            minsstr  = "00"
+
+        if(mine == 0):
+            minestr = "00"
+         
         
 
-        sname = "{0}:{1} {2}-".format(hours, str(self.getStartTime().minute), cycle)
-        ename = "{0}:{1} {2}".format(hourE, str(self.getEndTime().minute), cycle2)
+        sname = "{0}:{1} {2}-".format(hours,minsstr, cycle)
+        ename = "{0}:{1} {2}".format(hourE, minestr, cycle2)
         self.descript= self.taskName +"\n" + sname + ename
         
         if(self.taskType == 0):
@@ -202,7 +203,7 @@ class Task():
             self.taskframe = customtkinter.CTkButton(self.tempFrame, text_color = "#000000", text = self.descript,font=customtkinter.CTkFont(size=25,family = "Comic Sans MS", weight="bold"), hover_color="#279400", fg_color="transparent",width = 500,height = 100 ) 
             self.taskframe.pack()
     def getTaskButton(self):
-        return self.taskframe
+        return self.taskFrame
     def getDescript(self):
         return self.descript
     

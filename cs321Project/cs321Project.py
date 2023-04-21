@@ -13,18 +13,13 @@ from WeeklyRoutinePlanner import  *
  
 
 """
-BASIC TOD0: UPDATED (4/9/2023)
--transciption implementation 
-- Extra features ideas:
-    calander 
-    timer
-    Learning  - quiz, matching..? show  4 definitions on the left if even number even 3 defin if off, empty entry bars above them , three terms on write, type in the terms, if the terms match the front input then  the user gets points
-    language accessibility ??
-    text to speech on each card
-    blind mode - hot key gallary = 1, to create a set = 2, hot key for front card input = w hot key for back input = s, hot key for done button,  display a set = 3, hot key to read the front card outloud a, hot key to click the card and read the input
-    study plan maker - asks questions, spits out a study plan 
-    Study tips - methods
-    About 
+BASIC TOD0: UPDATED (4/21/2023)
+-TIMER - CHASE (4/22)
+-QUIZ - FARAAZ(4/22)
+-CALANDER - SHADAI (4/22)
+-SETTINGS - SHADAI (4/22)
+-INFO BUTTON ON EACH PAGE GIVING INFO (OPTIONAL)
+- ABOUT PAGE - Showing our names (OPTIONAL)
  
 
 
@@ -242,10 +237,11 @@ def helperP(planner,form_frame):
 def helperP2(planner,form_frame,next_button):
     if(planner.checkV()==False):
         if(planner.getValues()==False):
-          #planner.getValues()#if hobby clicled it saves the alreayd made button
-          if(planner.getValuesH() == False):
+            if(planner.getValuesH() == False):
               print("hobby show")
               planner.hobbyPage(form_frame,next_button)
+           
+           
 
 
 def RequiredForm(plan_frame,planner,gen):
@@ -267,23 +263,12 @@ def RequiredForm(plan_frame,planner,gen):
      form_frame = customtkinter.CTkScrollableFrame(temp_frame, width = 1150, height = 700) 
      form_frame.pack(side=TOP)
 
-    
+   
      
      planner.formPage(form_frame)
    
 
-     
 
-    
-  
-
-
-     
-     
-
-
-    
-       
 
 
 
