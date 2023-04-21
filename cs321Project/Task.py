@@ -23,7 +23,7 @@ class Task():
 
     #-----------Required----------
     startTime = None
-    endTime = None
+    #endTime = None
     day = 0  #mon,tues,wed
     #------------Hobbies----------
     timesaWeek = 0
