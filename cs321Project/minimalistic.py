@@ -42,6 +42,7 @@ def get_transcript(video_id):
         print(f"Error: {e}")
         return None
 
+'''
 url = input("Enter the YouTube video URL: ")
 video_id = extract_video_id(url)
 
@@ -55,3 +56,4 @@ if video_id:
         print("Could not get the transcript")
 else:
     print("Invalid YouTube URL")
+'''
