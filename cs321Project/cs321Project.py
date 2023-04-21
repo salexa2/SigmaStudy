@@ -1,5 +1,6 @@
 ﻿import tkinter 
 from tkinter import * 
+from minimalistic import extract_video_id, get_transcript, save_transcript_to_file
 import customtkinter
 from tkinter import filedialog
 import gallary 
@@ -38,13 +39,12 @@ customtkinter.set_default_color_theme("green")  # Themes: "blue" (standard), "gr
  # configure window
 root = customtkinter.CTk() 
 root.title("Sigma Study")
-root.geometry(f"{1350}x{800}")
+root.geometry(f"{1350}x{700}")
 
 
 # configure grid layout (4x4)
 root.grid_columnconfigure(0, weight=0)
 root.grid_columnconfigure(1, weight=3)
-root.grid_rowconfigure(1, weight=6)
                 
 
 
@@ -100,8 +100,17 @@ def openf(default_text):
 
 #takes in a link to a video, gets a transcript from it, converts it to text - FARAZZ
 def getLink(linkbar, default_text):
-
-    print(linkbar)
+    video_id = extract_video_id(linkbar)
+    if video_id:
+        transcript = get_transcript(video_id)
+        if transcript:
+            save_transcript_to_file(transcript, "transcript.txt")
+            default_text.delete('1.0', END)
+            default_text.insert(END, transcript)
+        else:
+            print("Could not get the transcript")
+    else:
+        print("Invalid YouTube URL")
 
 
 
@@ -134,7 +143,11 @@ def slider_event(value):
 def upload_page():
    
    upload_frame = customtkinter.CTkFrame(root, width = 1150, height =700)
-   upload_frame.grid(column = 1,row =0 ,sticky = "NSEW",padx=5)
+   upload_frame.grid(column = 1,row =0, columnspan = 2, rowspan = 2 ,sticky = "NSEW",padx=5)
+   #upload_frame.rowconfigure(0, weight = 1)
+   ##upload_frame.rowconfigure(1, weight = 3)
+   #upload_frame.columnconfigure(0, weight = 2)
+   #upload_frame.columnconfigure(1, weight = 2)
    #delete later 
    upload_label = customtkinter.CTkLabel(upload_frame, text="This is the Upload Menu", font=customtkinter.CTkFont(size=20, weight="bold"))
    upload_label.place(x=600,y=0)
@@ -175,9 +188,10 @@ def gallary_page():
 
    gally.set_galFrame(gallary_frame)
  
+   #BUTTON TO CREATE NEW SET IN GALLERY
    create_set_button = customtkinter.CTkButton(gallary_frame, text= "Create Set", fg_color= "#279400", hover_color="#1C6B00", command = lambda: gally.create_Set(gallary_frame))
    create_set_button.place(x=10, y=10)
-
+   
 
     #BUTTON TO CLEAR ALL SETS
    create_clear_button = customtkinter.CTkButton(gallary_frame, text= "Clear All Sets", fg_color= "#279400", hover_color="#1C6B00", command = lambda: gally.clearSets())
@@ -302,7 +316,7 @@ def plan_page():
 
 # create sidebar frame with widgets
 sidebar_frame = customtkinter.CTkFrame(root, width=200, height = 800, corner_radius=0)
-sidebar_frame.grid(column =0, row=0, sticky = "NSEW")
+sidebar_frame.grid(column =0, row=0, sticky = "W")
 #sidebar_frame.grid_rowconfigure(5, weight=1)
 
 
