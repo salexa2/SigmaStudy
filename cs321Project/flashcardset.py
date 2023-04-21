@@ -5,7 +5,8 @@ import customtkinter
 from SaveAndLoad import *
 
 
-
+#changes
+#play page 
 
 class flashcardset:
 
@@ -110,6 +111,9 @@ class flashcardset:
        
    #page that holds each flashcard- called once - DO NOT TOUCH THIS UNLESS UR SHADAI
     def play_Page(self,galf):
+        #bug fix -------------displaying empty flash card sets
+        if(len(self.flashset) >0):
+            #0----------------------------
          print("Unit Testing 3.2: Gallary: Flashcard should display \n")
          play_f = customtkinter.CTkFrame(galf, fg_color="#279400" ,width =1200 ,height = 700) 
          play_f.place(x= 50, y= 50)
@@ -172,7 +176,7 @@ class flashcardset:
     def edit_Page (self,galObject):
          print("Unit Testing Case 6.1: Modifying set - Edit Page should show")
 
-         scrollframe = customtkinter.CTkFrame(galObject.get_galFrame(), width = 1300, height = 700) 
+         scrollframe = customtkinter.CTkFrame(galObject.get_galFrame(), width = 1300, height = 750) 
          scrollframe.place(x = 0, y= 0)
 
          scrollable_frame = customtkinter.CTkScrollableFrame(master=scrollframe, width=1200, height=700)
@@ -187,11 +191,31 @@ class flashcardset:
          for i in self.flashset:
 
                i.editCard(scrollable_frame,self,galObject)
-               divider = customtkinter.CTkLabel(master = scrollable_frame, text="___________________________________________________________________________________________________________________________________________________________________________________________", font=customtkinter.CTkFont(size=20, weight="bold"))
-               divider.pack()
+
+
         
+         addCard_button = customtkinter.CTkButton(scrollable_frame, text = "Add Card", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: add_Card(addCard_button,doneEdit_button) )
+         addCard_button.pack(side=LEFT)
          doneEdit_button = customtkinter.CTkButton(scrollable_frame, text = "Done", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: self.finalizeChange(scrollframe,galObject) )
          doneEdit_button.pack(side=RIGHT)
+        
+
+         def add_Card(add,doneEdit_button):
+             print("Adding Card to edit page")
+             newCard = flashcard()
+             self.flashset.append(newCard)
+
+             newCard.editCard(scrollable_frame,self,galObject)
+             
+             addCard_button.destroy()
+             doneEdit_button.destroy()
+
+             add = customtkinter.CTkButton(scrollable_frame, text = "Add Card", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: add_Card() )
+             add.pack(side=LEFT)
+             doneEdit_button = customtkinter.CTkButton(scrollable_frame, text = "Done", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: self.finalizeChange(scrollframe,galObject) )
+             doneEdit_button.pack(side=RIGHT)
+             
+         
 
 
     #deletes a flashcard

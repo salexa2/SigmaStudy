@@ -1,5 +1,6 @@
 #creates a flashcard object 
-
+#changed:
+#remove function
 
 #from ast import Lambda  i commented this out 4/9, if program acts up uncomment it - shadai 
 from tkinter import * 
@@ -58,11 +59,18 @@ class flashcard:
        card_frame.place(x = 100, y= 100)
 
    #removes this card from a given set 
-   def remove (self,fset,galObject,scrollable_page):
+   def remove (self,fset,galObject,divider):
        fset.delete_card(self)
-       scrollable_page.destroy()
+       #changed----------------edit card bug
+       self.editfront.destroy()
+       self.editback.destroy()
+       self.del_button.destroy()
+       divider.destroy()
+       #scrollable_page.destroy()
+
        SaveAndLoad.save_data(galObject.returnGal(), galObject.return_saveN())
-       fset.edit_Page(galObject)
+     #  fset.edit_Page(galObject)
+     #--------------------bug end 
        print("Unit Testing Case 6.2: Modifying set - card should be deleted, new edit page should show")
 
    #edits card
@@ -76,8 +84,11 @@ class flashcard:
                 self.editback = customtkinter.CTkTextbox(scrollable_frame,width=750,height= 100, font = ("Helvetica", 18))
                 self.editback.pack(side=TOP, anchor=N)
                 self.editback.insert(END,self.getBack())
-                self.del_button = customtkinter.CTkButton(scrollable_frame, text = "Delete", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center" ,command = lambda:self.remove(fset,galObject,scrollable_frame)) #command = lambda:fset.remove(self)
+                self.del_button = customtkinter.CTkButton(scrollable_frame, text = "Delete", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center" ,command = lambda:self.remove(fset,galObject,divider)) #command = lambda:fset.remove(self)
                 self.del_button.pack(side=TOP, anchor=NE)
+                #removed from set ------------
+                divider = customtkinter.CTkLabel(master = scrollable_frame, text="___________________________________________________________________________________________________________________________________________________________________________________________", font=customtkinter.CTkFont(size=20, weight="bold"))
+                divider.pack()
    
    #saves edited changes 
    def saveEditedCard(self):

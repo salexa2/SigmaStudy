@@ -7,7 +7,9 @@ from gallary import *
 import month
 from month import * 
 import datetime
-
+import WeeklyRoutinePlanner
+from WeeklyRoutinePlanner import  *
+ 
 
 """
 BASIC TOD0: UPDATED (4/9/2023)
@@ -36,12 +38,13 @@ customtkinter.set_default_color_theme("green")  # Themes: "blue" (standard), "gr
  # configure window
 root = customtkinter.CTk() 
 root.title("Sigma Study")
-root.geometry(f"{1350}x{700}")
+root.geometry(f"{1350}x{800}")
 
 
 # configure grid layout (4x4)
 root.grid_columnconfigure(0, weight=0)
 root.grid_columnconfigure(1, weight=3)
+root.grid_rowconfigure(1, weight=6)
                 
 
 
@@ -50,12 +53,15 @@ root.grid_columnconfigure(1, weight=3)
 #---------------------variables-------------------
 
 saveName = "data.json"
-current_time = datetime.datetime.now()
+current_time = datetime.now()
 
 
 #----------------Object-------------------
 gally = gallary(root)
 curr_month = month(current_time.month)
+planner = None
+
+
 
 #-------------------functions-----------------------
 def change_appearance_mode_event( new_appearance_mode: str):
@@ -121,6 +127,7 @@ def slider_event(value):
     #customtkinter.set_window_scaling(value)
     customtkinter.set_widget_scaling(value)  
 
+
 #-------------------pages---------------
 
 
@@ -170,12 +177,19 @@ def gallary_page():
  
    create_set_button = customtkinter.CTkButton(gallary_frame, text= "Create Set", fg_color= "#279400", hover_color="#1C6B00", command = lambda: gally.create_Set(gallary_frame))
    create_set_button.place(x=10, y=10)
-   
+
+
+    #BUTTON TO CLEAR ALL SETS
+   create_clear_button = customtkinter.CTkButton(gallary_frame, text= "Clear All Sets", fg_color= "#279400", hover_color="#1C6B00", command = lambda: gally.clearSets())
+   create_clear_button.place(x=200, y=10)
+                             
 
    print("Unit Testing 3.0: Gallary page: gallary page should show\n")
    gally.print_size()
    gally.print_Gal()
-   
+
+
+  
    if(gally.getSize()>0):
        gally.display(gallary_frame)
 
@@ -205,6 +219,77 @@ def calander_page():
      monthmenu.place(x = 500, y = 50)
 
 
+def helperP(planner,form_frame):
+    if(planner.checkV()==False):
+        if(planner.getValues()==False):
+         planner.formPage(form_frame)
+
+
+def helperP2(planner,form_frame,next_button):
+    if(planner.checkV()==False):
+        if(planner.getValues()==False):
+          #planner.getValues()#if hobby clicled it saves the alreayd made button
+          if(planner.getValuesH() == False):
+              print("hobby show")
+              planner.hobbyPage(form_frame,next_button)
+
+
+def RequiredForm(plan_frame,planner,gen):
+    #values reset 
+     #ran.configure(state ="disabled")
+     planner.reset()
+     print("form should show")
+     gen.configure(state = "disabled")
+     temp_frame = customtkinter.CTkFrame(plan_frame, width = 1150, height =750) 
+     temp_frame.pack()
+
+     next_button = customtkinter.CTkButton(temp_frame, text = "add Task", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: helperP(planner,form_frame))
+     next_button.pack(anchor= "n")
+     hobby_button = customtkinter.CTkButton(temp_frame, text = "Add Hobbies", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda:helperP2(planner,form_frame,next_button))
+     hobby_button.pack(anchor= "n")
+     done_button = customtkinter.CTkButton(temp_frame, text = "Done", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: planner.printPlan(temp_frame, gen))
+     done_button.pack(anchor = "n")
+     
+     form_frame = customtkinter.CTkScrollableFrame(temp_frame, width = 1150, height = 700) 
+     form_frame.pack(side=TOP)
+
+    
+     
+     planner.formPage(form_frame)
+   
+
+     
+
+    
+  
+
+
+     
+     
+
+
+    
+       
+
+
+
+def plan_page():
+     plan_frame = customtkinter.CTkScrollableFrame(root, width = 1150, height =750) 
+     plan_frame.grid(column = 1,row =0 ,sticky = "NSEW",padx=5)
+     
+     planner = WeeklyRoutinePlanner(plan_frame)
+     planner.displayPlan()
+     #random_button = customtkinter.CTkButton(plan_frame, text = "RandomGenerate", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", state= "disabled",corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: planner.randomGen())
+     #random_button.pack(pady = 10)
+
+     gen_button = customtkinter.CTkButton(plan_frame, text = "Generate", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: RequiredForm(plan_frame,planner, gen_button))
+     gen_button.pack(pady = 19)
+     
+     
+
+
+
+
 
     
 
@@ -217,7 +302,7 @@ def calander_page():
 
 # create sidebar frame with widgets
 sidebar_frame = customtkinter.CTkFrame(root, width=200, height = 800, corner_radius=0)
-sidebar_frame.grid(column =0, row=0, sticky = "W")
+sidebar_frame.grid(column =0, row=0, sticky = "NSEW")
 #sidebar_frame.grid_rowconfigure(5, weight=1)
 
 
@@ -234,8 +319,11 @@ sidebar_button_2.place(x = 20, y = 100)
 sidebar_button_3 = customtkinter.CTkButton(sidebar_frame, text= "Calander",fg_color= "#279400",hover_color="#1C6B00",command= calander_page)
 sidebar_button_3.place(x = 20, y = 150)
 
-sidebar_button_4 = customtkinter.CTkButton(sidebar_frame, text= "Extra features...",fg_color= "#279400",hover_color="#1C6B00")
+sidebar_button_4 = customtkinter.CTkButton(sidebar_frame, text= "Study Plan",fg_color= "#279400",hover_color="#1C6B00", command = plan_page)
 sidebar_button_4.place(x = 20, y = 200)
+
+sidebar_button_5 = customtkinter.CTkButton(sidebar_frame, text= "Extra features...",fg_color= "#279400",hover_color="#1C6B00")
+sidebar_button_5.place(x = 20, y = 250)
 
 #Appearance mode change 
 appearance_mode_label = customtkinter.CTkLabel(sidebar_frame, text="Appearance Mode:",  anchor="w")

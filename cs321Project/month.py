@@ -25,7 +25,7 @@ class month():
     
     #constructor
     def __init__(self, month):
-       self.currentMonth = month
+        self.currentMonth = month
     def setMonthFrame(self,frame):
         self.monthframe = frame
 
@@ -59,8 +59,7 @@ class month():
 
     def place_dayFrames(self,frame,tempx,tempy,num):
          counter = 1
-
-          
+    
          while(counter <num):
              n_day = day()
              n_day.set_name(counter)
