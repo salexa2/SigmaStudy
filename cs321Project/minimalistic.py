@@ -19,6 +19,7 @@ Original file is located at
 #!unzip vosk-model-en-us-aspire-0.2.zip
 #!pip install youtube-transcript-api
 
+#gets the transcript from s youtube link
 def save_transcript_to_file(transcript, filename="transcript.txt"):
     with open(filename, "w", encoding="utf-8") as f:
         f.write(transcript)

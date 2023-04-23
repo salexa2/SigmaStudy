@@ -5,8 +5,10 @@ import customtkinter
 from SaveAndLoad import *
 
 
+#changes
+#play page 
 
-
+#Holds a list of flashcards
 class flashcardset:
 
     #-------------GLOBAL VARIABLE------------------
@@ -110,9 +112,12 @@ class flashcardset:
        
    #page that holds each flashcard- called once - DO NOT TOUCH THIS UNLESS UR SHADAI
     def play_Page(self,galf):
+        #bug fix -------------displaying empty flash card sets
+        if(len(self.flashset) >0):
+            #0----------------------------
          print("Unit Testing 3.2: Gallary: Flashcard should display \n")
          play_f = customtkinter.CTkFrame(galf, fg_color="#279400" ,width =1200 ,height = 700) 
-         play_f.place(x= 50, y= 50)
+         play_f.place(x= 0, y= 0)
        
          done_button = customtkinter.CTkButton(play_f, text = "✓" , text_color ="#000000", fg_color= "#FFFFFF", hover_color = "#CFCFCF" ,corner_radius = 200, width = 25, height = 30, font = ("Helvetica",18), anchor="center", command = lambda:self.removepframes(play_f))
          done_button.place(x=1100, y= 650)
@@ -127,8 +132,7 @@ class flashcardset:
              next_card.place(x = 1000, y = 650)
        
             
-       
-
+      
          self.displayCard(play_f,self.index)
     
     #deletes a set 
@@ -191,23 +195,32 @@ class flashcardset:
          for i in self.flashset:
 
                i.editCard(scrollable_frame,self,galObject)
-               divider = customtkinter.CTkLabel(master = scrollable_frame, text="___________________________________________________________________________________________________________________________________________________________________________________________", font=customtkinter.CTkFont(size=20, weight="bold"))
-               divider.pack()
+
+
         
-
-         addCard_button = customtkinter.CTkButton(scrollable_frame, text = "Add Card", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: add_Card() )
+         addCard_button = customtkinter.CTkButton(scrollable_frame, text = "Add Card", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: add_Card(addCard_button,doneEdit_button) )
          addCard_button.pack(side=LEFT)
-
          doneEdit_button = customtkinter.CTkButton(scrollable_frame, text = "Done", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: self.finalizeChange(scrollframe,galObject) )
          doneEdit_button.pack(side=RIGHT)
+        
 
-         def add_Card():
+         def add_Card(add,doneEdit_button):
              print("Adding Card to edit page")
              newCard = flashcard()
              self.flashset.append(newCard)
+
              newCard.editCard(scrollable_frame,self,galObject)
-             divider = customtkinter.CTkLabel(master = scrollable_frame, text="___________________________________________________________________________________________________________________________________________________________________________________________", font=customtkinter.CTkFont(size=20, weight="bold"))
-             divider.pack()
+             
+             addCard_button.destroy()
+             doneEdit_button.destroy()
+
+             add = customtkinter.CTkButton(scrollable_frame, text = "Add Card", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: add_Card() )
+             add.pack(side=LEFT)
+             doneEdit_button = customtkinter.CTkButton(scrollable_frame, text = "Done", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: self.finalizeChange(scrollframe,galObject) )
+             doneEdit_button.pack(side=RIGHT)
+             
+         
+
 
     #deletes a flashcard
     def delete_card(self,card):
@@ -221,7 +234,13 @@ class flashcardset:
         if(choice == "Edit"):  
             print("Unit Testing Case 6.0: Modifying set - Edit")
             self.edit_Page(galObject)
-       
+        
+        #FARAZ IMPLEMENT
+        if(choice == "Quiz"):
+            print("Unit Testing Case 7.0: Quiz")
+            
+            #create a page and functions to create a quiz - shows frony flashcard up top and 4 answer choice buttons in 2x2 formation
+
         if(choice == "Delete"):
             print("Unit Testing Case 5.0: Modifying a set  - Delete a set")
             self.delete_Page(galObject,setframe)
@@ -235,7 +254,7 @@ class flashcardset:
          set_label.place(x = 50, y = 30, anchor = "center")
          play_b = customtkinter.CTkButton(set_frame, text = "▶️",width = 3,height = 3, hover_color= "#279400", fg_color= "transparent", font=customtkinter.CTkFont(size=12), command = lambda: self.play_Page(galf))
          play_b.place(x = 16, y = 85, anchor = "center")
-         combobox = customtkinter.CTkOptionMenu(set_frame, fg_color = "#279400",  button_color = "#279400", dropdown_hover_color = "#1C6B00" , width = 18, height = 19,values=["Edit", "Delete"], font=customtkinter.CTkFont(size=12), command = lambda choice: self.optionmenu_callback(choice,galObject,set_frame), variable = optionmenu_var)
+         combobox = customtkinter.CTkOptionMenu(set_frame, fg_color = "#279400",  button_color = "#279400", dropdown_hover_color = "#1C6B00" , width = 18, height = 19,values=["Edit", "Quiz","Delete"], font=customtkinter.CTkFont(size=12), command = lambda choice: self.optionmenu_callback(choice,galObject,set_frame), variable = optionmenu_var)
          combobox.place(x= 33,y=75)
        
               
@@ -243,23 +262,24 @@ class flashcardset:
          return
 
     #creates a flashcard  and inserts it into set after + is hit
-    def create_a_Card(self,front,back,galObject):
+    def create_a_Card(self,front,back,galObject,button):
         print("Unit Testing 2.3: Creates a card\n")
         new = flashcard()
         new.setFront(front)
         new.setBack(back)
-        self.insertCard(new,galObject)
+        self.insertCard(new,galObject,button)
     
     #inserts card into set
-    def insertCard(self,card,galObject):
+    def insertCard(self,card,galObject, button):
         print("Unit Testing 2.4: Inserts a card into a set\n")
         self.flashset.append(card)
         print("Unit Testing 2.5: Calls the creating set page.n")
-        self.creating_set_page(galObject)
+        self.creating_set_page(galObject,button)
 
 
     #adds a flashcard set to the gallary object
-    def addtoGal(self,galObject):
+    def addtoGal(self,galObject,button):
+        
         #creats a name for set otherwise no name
         galObject.loadSets()
         dialog = customtkinter.CTkInputDialog(text="What would you like to name your set?", title= "New FlashCard Set")
@@ -270,10 +290,11 @@ class flashcardset:
         #destroys the create frame
         galObject.reload_Gal()
         self.flash_frame.destroy()
+        button.configure(state = "normal")
         self.printAll()
         
     #UI for creating a new set 
-    def creating_set_page(self, galObject):
+    def creating_set_page(self, galObject, button):
          print("Unit Testing 2.2: Flashcard Page should show\n")
      
         #frontinput, 
@@ -285,11 +306,11 @@ class flashcardset:
          back_input.insert(END,"Enter Definition")
  
          #creates another card, inserts previous card, doesn't insert a card till the "+" button is hit.
-         next_button = customtkinter.CTkButton(self.flash_frame, text= "➕", text_color ="#000000", fg_color= "#FFFFFF",hover_color = "#CFCFCF" , corner_radius = 200, width = 30, height = 30, font = ("Helvetica",18), anchor="center", command = lambda:self.create_a_Card(front_card_input.get(), back_input.get("1.0",END),galObject))
+         next_button = customtkinter.CTkButton(self.flash_frame, text= "➕", text_color ="#000000", fg_color= "#FFFFFF",hover_color = "#CFCFCF" , corner_radius = 200, width = 30, height = 30, font = ("Helvetica",18), anchor="center", command = lambda:self.create_a_Card(front_card_input.get(), back_input.get("1.0",END),galObject,button))
          next_button.place(x=420, y= 338)
 
          #creates a set
-         done_button = customtkinter.CTkButton(self.flash_frame, text = "✔️" , text_color ="#000000", fg_color= "#FFFFFF", hover_color = "#CFCFCF" ,corner_radius = 200, width = 25, height = 30, font = ("Helvetica",18), anchor="center", command = lambda: self.addtoGal(galObject))
+         done_button = customtkinter.CTkButton(self.flash_frame, text = "✔️" , text_color ="#000000", fg_color= "#FFFFFF", hover_color = "#CFCFCF" ,corner_radius = 200, width = 25, height = 30, font = ("Helvetica",18), anchor="center", command = lambda: self.addtoGal(galObject,button))
          done_button.place(x=480, y= 338)
 
          cancel_button = customtkinter.CTkButton(self.flash_frame, text= "❌", text_color ="#FFFFFF", fg_color= "transparent" , corner_radius = 200, width = 30, height = 30, font = ("Helvetica",18), anchor="center", command = lambda:self.flash_frame.destroy())

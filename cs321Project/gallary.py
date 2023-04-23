@@ -9,7 +9,7 @@ import flashcardset
 from flashcardset import *
 from SaveAndLoad import *
  
-
+#gallary holds the flashcard sets for use
 class gallary():
 
 
@@ -48,10 +48,11 @@ class gallary():
         return len(self.lib)
 
     #call to create a set
-    def create_Set(self,upload_frame):
+    def create_Set(self,upload_frame, button):
+        button.configure(state = "disabled")
         print("Unit Testing 2.1: Flashcard set created\n")
         flashset = flashcardset(upload_frame)
-        flashset.creating_set_page(self)
+        flashset.creating_set_page(self, button)
        # return
 
      #adds a set to the gallary
@@ -146,6 +147,26 @@ class gallary():
             SaveAndLoad.save_data(self.lib,self.saveName)
             warningframe.destroy()
             self.reload_Gal()
+
+    def clearSets(self):
+        print("prompting to clear all sets")
+        warningframe = customtkinter.CTkFrame(self.galframe, width = 400, height = 150)
+        warningframe.place(x = 0, y = 650)
+
+
+        w_label = customtkinter.CTkLabel(warningframe, text = "Are you sure you\n want to delete all sets?",font=customtkinter.CTkFont(size=20, weight="bold"))
+        w_label.place(x = 200, y = 30, anchor = "center")
+        yes_b = customtkinter.CTkButton(warningframe, text = "yes",width = 30,height = 30, border_width=0, hover_color= "#279400", fg_color= "#279400", font=customtkinter.CTkFont(size=20), command = lambda: removeAllSets())
+        yes_b.place(x = 50, y = 85, anchor = "center")
+        no_b = customtkinter.CTkButton(warningframe, text = "no",width = 30,height = 30, border_width=0, hover_color= "#279400", fg_color= "#279400", font=customtkinter.CTkFont(size=20), command = lambda: warningframe.destroy())
+        no_b.place(x = 350, y = 85, anchor = "center")
+
+        def removeAllSets():
+            self.lib = []
+            SaveAndLoad.save_data(self.lib,self.saveName)
+            warningframe.destroy()
+
+
 
 
 

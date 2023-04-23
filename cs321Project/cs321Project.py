@@ -8,28 +8,11 @@ from gallary import *
 import month
 from month import * 
 import datetime
-
-
-"""
-BASIC TOD0: UPDATED (4/9/2023)
--transciption implementation 
-- Extra features ideas:
-    calander 
-    timer
-    Learning  - quiz, matching..? show  4 definitions on the left if even number even 3 defin if off, empty entry bars above them , three terms on write, type in the terms, if the terms match the front input then  the user gets points
-    language accessibility ??
-    text to speech on each card
-    blind mode - hot key gallary = 1, to create a set = 2, hot key for front card input = w hot key for back input = s, hot key for done button,  display a set = 3, hot key to read the front card outloud a, hot key to click the card and read the input
-    study plan maker - asks questions, spits out a study plan 
-    Study tips - methods
-    About 
+import WeeklyRoutinePlanner
+from WeeklyRoutinePlanner import  *
  
 
-
-
-
-Basic Summary: This program outputs a transcript from video and allows users to create flashcards (Will implement extra features later)
-"""
+#study app that aids students in studying
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("green")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -37,28 +20,27 @@ customtkinter.set_default_color_theme("green")  # Themes: "blue" (standard), "gr
  # configure window
 root = customtkinter.CTk() 
 root.title("Sigma Study")
-root.geometry(f"{1500}x{800}")
+root.geometry(f"{1350}x{700}")
 
 
 # configure grid layout (4x4)
 root.grid_columnconfigure(0, weight=0)
 root.grid_columnconfigure(1, weight=3)
-root.grid_rowconfigure(0, weight=6)
-#root.grid_rowconfigure(1, weight=3)
                 
-
-
 
 
 #---------------------variables-------------------
 
 saveName = "data.json"
-current_time = datetime.datetime.now()
+current_time = datetime.now()
 
 
 #----------------Object-------------------
 gally = gallary(root)
 curr_month = month(current_time.month)
+planner = None
+
+
 
 #-------------------functions-----------------------
 def change_appearance_mode_event( new_appearance_mode: str):
@@ -127,11 +109,14 @@ def getLink(linkbar, default_text):
          text_temp.close()
     '''
 
+    
 
-def slider_event(value):
+
+def optionmenu_callback(choice):
     customtkinter.deactivate_automatic_dpi_awareness()
-    #customtkinter.set_window_scaling(value)
-    customtkinter.set_widget_scaling(value)  
+    customtkinter.set_widget_scaling(float(choice))  
+
+
 
 #-------------------pages---------------
 
@@ -145,8 +130,8 @@ def upload_page():
    #upload_frame.columnconfigure(0, weight = 2)
    #upload_frame.columnconfigure(1, weight = 2)
    #delete later 
-   upload_label = customtkinter.CTkLabel(upload_frame, text="This is the Upload Menu", font=customtkinter.CTkFont(size=20, weight="bold"))
-   upload_label.place(x=600,y=0)
+   #upload_label = customtkinter.CTkLabel(upload_frame, text="This is the Upload Menu", font=customtkinter.CTkFont(size=20, weight="bold"))
+   #upload_label.place(x=600,y=0)
    #holds default text box
    default_text = customtkinter.CTkTextbox(upload_frame,width=600,height= 650, font = ("Helvetica", 16))
    default_text.place(x= 50, y=100)
@@ -163,7 +148,7 @@ def upload_page():
    #----------------------
 
    print("Unit Testing 2.0: Gallary should create a set\n")
-   create_set_button = customtkinter.CTkButton(upload_frame, text= "Create Set", fg_color= "#279400", hover_color="#1C6B00", command = lambda: gally.create_Set(upload_frame))
+   create_set_button = customtkinter.CTkButton(upload_frame, text= "Create Set", fg_color= "#279400", hover_color="#1C6B00", command = lambda: gally.create_Set(upload_frame, create_set_button))
    create_set_button.place(x=450, y=50)
 
 
@@ -179,24 +164,27 @@ def gallary_page():
 
    gallary_frame = customtkinter.CTkFrame(root, width = 1150, height = 700) 
    gallary_frame.grid(column = 1,row =0 ,sticky = "NSEW",padx=5)
-   upload_label = customtkinter.CTkLabel(gallary_frame, text="This is the Gallary", font=customtkinter.CTkFont(size=20, weight="bold"))
-   upload_label.place(x=600,y=0)
+   #upload_label = customtkinter.CTkLabel(gallary_frame, text="This is the Gallary", font=customtkinter.CTkFont(size=20, weight="bold"))
+   #upload_label.place(x=600,y=0)
 
    gally.set_galFrame(gallary_frame)
  
    #BUTTON TO CREATE NEW SET IN GALLERY
    create_set_button = customtkinter.CTkButton(gallary_frame, text= "Create Set", fg_color= "#279400", hover_color="#1C6B00", command = lambda: gally.create_Set(gallary_frame))
    create_set_button.place(x=10, y=10)
-
-   #BUTTON TO CLEAR ALL SETS
-   create_clear_button = customtkinter.CTkButton(gallary_frame, text= "Clear All Sets", fg_color= "#279400", hover_color="#1C6B00", command = lambda: gally.clearSets())
-   create_clear_button.place(x=10, y=750)
    
+
+    #BUTTON TO CLEAR ALL SETS
+   create_clear_button = customtkinter.CTkButton(gallary_frame, text= "Clear All Sets", fg_color= "#279400", hover_color="#1C6B00", command = lambda: gally.clearSets())
+   create_clear_button.place(x=200, y=10)
+                             
 
    print("Unit Testing 3.0: Gallary page: gallary page should show\n")
    gally.print_size()
    gally.print_Gal()
-   
+
+
+  
    if(gally.getSize()>0):
        gally.display(gallary_frame)
 
@@ -204,14 +192,17 @@ def gallary_page():
 def calander_page():
      calander_frame = customtkinter.CTkFrame(root, width = 1150, height = 700) 
      calander_frame.grid(column = 1,row =0 ,sticky = "NSEW",padx=5)
-     calander_label = customtkinter.CTkLabel(calander_frame, text="This is the Calander", font=customtkinter.CTkFont(size=20, weight="bold"))
-     calander_label.place(x=600,y=0)
+    # calander_label = customtkinter.CTkLabel(calander_frame, text="This is the Calander", font=customtkinter.CTkFont(size=20, weight="bold"))
+    # calander_label.place(x=600,y=0)
 
+     
+     side_label = customtkinter.CTkLabel( calander_frame, text="Events", font=customtkinter.CTkFont(size=20, weight="bold"))
+     side_label.place(x=1150,y=70)
+     side_taskframe = customtkinter.CTkFrame(calander_frame, width = 250, height = 650) 
+     side_taskframe.place(x = 1060, y = 100)
      curr_month.setMonthFrame(calander_frame)
-
-
-     curr_month.checkMonth()
-  
+     curr_month.checkMonth(side_taskframe)
+     
      #defaut
      default_weekday =  curr_month.weekDay(current_time.year,current_time.month,1)
      print("the first of the default month lies on a ", default_weekday)
@@ -222,11 +213,80 @@ def calander_page():
      #display month 
      monthmenu = customtkinter.CTkOptionMenu(calander_frame, fg_color = "#279400",  button_color = "#279400", dropdown_hover_color = "#1C6B00" , width = 40,
      height = 25,values=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-     font=customtkinter.CTkFont(size=20), command = lambda choice: curr_month.setMonth(choice), variable = optionmenu_var)
+     font=customtkinter.CTkFont(size=20), command = lambda choice: curr_month.setMonth(choice,side_taskframe), variable = optionmenu_var)
      monthmenu.place(x = 500, y = 50)
 
 
 
+def helperP(planner,form_frame):
+    if(planner.checkV()==False):
+        if(planner.getValues()==False):
+         planner.formPage(form_frame)
+
+
+def helperP2(planner,form_frame,next_button):
+    if(planner.checkV()==False):
+        if(planner.getValues()==False):
+            if(planner.getValuesH() == False):
+              print("hobby show")
+              planner.hobbyPage(form_frame,next_button)
+           
+           
+
+
+def RequiredForm(plan_frame,planner,gen):
+    #values reset 
+     #ran.configure(state ="disabled")
+     planner.reset()
+     print("form should show")
+     gen.configure(state = "disabled")
+     temp_frame = customtkinter.CTkFrame(plan_frame, width = 1150, height =750) 
+     temp_frame.pack()
+
+     next_button = customtkinter.CTkButton(temp_frame, text = "add Task", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: helperP(planner,form_frame))
+     next_button.pack(anchor= "n", pady = 15)
+     hobby_button = customtkinter.CTkButton(temp_frame, text = "Add Hobbies", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda:helperP2(planner,form_frame,next_button))
+     hobby_button.pack(anchor= "n", pady = 15)
+     done_button = customtkinter.CTkButton(temp_frame, text = "Done", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: planner.printPlan(temp_frame, gen))
+     done_button.pack(anchor = "n", pady = 15)
+     
+     form_frame = customtkinter.CTkScrollableFrame(temp_frame, width = 1150, height = 700) 
+     form_frame.pack(side=TOP)
+
+   
+     
+     planner.formPage(form_frame)
+   
+
+
+
+
+
+def plan_page():
+     plan_frame = customtkinter.CTkScrollableFrame(root, width = 1150, height =750) 
+     plan_frame.grid(column = 1,row =0 ,sticky = "NSEW",padx=5)
+     
+     planner = WeeklyRoutinePlanner(plan_frame)
+     planner.displayPlan()
+     #random_button = customtkinter.CTkButton(plan_frame, text = "RandomGenerate", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", state= "disabled",corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: planner.randomGen())
+     #random_button.pack(pady = 10)
+
+     gen_button = customtkinter.CTkButton(plan_frame, text = "Generate", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: RequiredForm(plan_frame,planner, gen_button))
+     gen_button.pack(pady = 19)
+     
+     
+def settings_page():
+    settings_frame = customtkinter.CTkFrame(root, width = 1150, height = 750) 
+    settings_frame.grid(column = 1,row =0 ,sticky = "NSEW",padx=5)
+    settings_label = customtkinter.CTkLabel(settings_frame, text="Settings", font=customtkinter.CTkFont(size=20, weight="bold"))
+    settings_label.place(x=60,y=30)
+    scale_label = customtkinter.CTkLabel(settings_frame, text="Changes the scaling to fit screen size:")
+    scale_label.place(x=40,y=80)
+    scaling = customtkinter.CTkOptionMenu(settings_frame, fg_color = "#279400",  button_color = "#279400", dropdown_hover_color = "#1C6B00" , width = 140, height = 25,values=[".2", ".4",".5", ".6", ".8","1", "1.2","1.3","1.4",  "1.5" , "1.6" , "1.8", "1.9", "2"], command =  optionmenu_callback)
+    scaling.place(x= 40,y=125)
+       
+
+          
     
 
 
@@ -237,8 +297,8 @@ def calander_page():
 
 
 # create sidebar frame with widgets
-sidebar_frame = customtkinter.CTkFrame(root, width=200, height = 800, corner_radius=0)
-sidebar_frame.grid(column =0, row=0, rowspan = 1, sticky = "NSEW")
+sidebar_frame = customtkinter.CTkFrame(root, width=200, height = 800)
+sidebar_frame.grid(column =0, row=0, sticky = "W")
 #sidebar_frame.grid_rowconfigure(5, weight=1)
 
 
@@ -255,17 +315,21 @@ sidebar_button_2.place(x = 20, y = 100)
 sidebar_button_3 = customtkinter.CTkButton(sidebar_frame, text= "Calander",fg_color= "#279400",hover_color="#1C6B00",command= calander_page)
 sidebar_button_3.place(x = 20, y = 150)
 
-sidebar_button_4 = customtkinter.CTkButton(sidebar_frame, text= "Extra features...",fg_color= "#279400",hover_color="#1C6B00")
+sidebar_button_4 = customtkinter.CTkButton(sidebar_frame, text= "Study Plan",fg_color= "#279400",hover_color="#1C6B00", command = plan_page)
 sidebar_button_4.place(x = 20, y = 200)
+
+sidebar_button_5 = customtkinter.CTkButton(sidebar_frame, text= "Settings",fg_color= "#279400",hover_color="#1C6B00", command = settings_page)
+sidebar_button_5.place(x = 20, y = 250)
 
 #Appearance mode change 
 appearance_mode_label = customtkinter.CTkLabel(sidebar_frame, text="Appearance Mode:",  anchor="w")
 appearance_mode_label.place(x = 20, y = 700)
 appearance_mode_optionemenu = customtkinter.CTkOptionMenu(sidebar_frame,fg_color= "#279400", button_color= "#279400",button_hover_color= "#1C6B00", values=["Light", "Dark", "Default"],command=change_appearance_mode_event)
-appearance_mode_optionemenu.place(x = 20, y = 725)
+appearance_mode_optionemenu.place(x = 20, y = 750)
 
-slider = customtkinter.CTkSlider(master=sidebar_frame, from_=0.2, to=2, command=  slider_event )
-slider.place(x = 0, y = 760)
+
+
+
 
 
 root.mainloop()

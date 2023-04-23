@@ -5,6 +5,7 @@ import customtkinter
 import day
 from day import *
 
+#month holds a list of days
 class month():
      #list of days- we wanna save this so when a month is displayed the eveents for that day are saved
     daysInMonth = []
@@ -25,7 +26,7 @@ class month():
     
     #constructor
     def __init__(self, month):
-       self.currentMonth = month
+        self.currentMonth = month
     def setMonthFrame(self,frame):
         self.monthframe = frame
 
@@ -57,14 +58,13 @@ class month():
             day_label.place(x = posx, y =posy)
             posx = posx + 145
 
-    def place_dayFrames(self,frame,tempx,tempy,num):
+    def place_dayFrames(self,frame,tempx,tempy,num,fr, month):
          counter = 1
-
-          
+    
          while(counter <num):
              n_day = day()
              n_day.set_name(counter)
-             n_day.day_frame(frame,tempx,tempy)
+             n_day.day_frame(frame,tempx,tempy,fr, month)
              self.daysInMonth.append(n_day)
 
              tempx= tempx+145
@@ -77,7 +77,7 @@ class month():
              counter = counter + 1
 
     #checks the month and displays the page/calande
-    def checkMonth(self):
+    def checkMonth(self, frame):
         self.weekDay(self.current_time.year, self.currentMonth, 1)
        
        
@@ -95,7 +95,7 @@ class month():
             index = self.week.index(self.dayStart)
             tempx = self.week_xpos[index]-20
             tempy = 100
-            self.place_dayFrames(jan_frame,tempx,tempy,num)
+            self.place_dayFrames(jan_frame,tempx,tempy,num,frame, 1)
                 
 
            
@@ -112,7 +112,7 @@ class month():
             index = self.week.index(self.dayStart)
             tempx = self.week_xpos[index]-20
             tempy = 100
-            self.place_dayFrames(feb_frame,tempx,tempy, num)
+            self.place_dayFrames(feb_frame,tempx,tempy, num, frame,2)
                 
         elif(self.currentMonth  == 3):
             print("march\n")
@@ -127,7 +127,7 @@ class month():
             index = self.week.index(self.dayStart)
             tempx = self.week_xpos[index]-20
             tempy = 100
-            self.place_dayFrames(mar_frame,tempx,tempy, num)
+            self.place_dayFrames(mar_frame,tempx,tempy, num, frame, 3)
 
         elif(self.currentMonth  == 4):
             print("april\n")
@@ -142,7 +142,7 @@ class month():
             index = self.week.index(self.dayStart)
             tempx = self.week_xpos[index]-20
             tempy = 100
-            self.place_dayFrames(april_frame,tempx,tempy, num)
+            self.place_dayFrames(april_frame,tempx,tempy, num,frame, 4)
                 
         elif(self.currentMonth  == 5):
             print("may\n")
@@ -157,8 +157,8 @@ class month():
             index = self.week.index(self.dayStart)
             tempx = self.week_xpos[index]-20
             tempy = 100
-            self.place_dayFrames(may_frame,tempx,tempy, num)
-
+            self.place_dayFrames(may_frame,tempx,tempy, num, frame,5)
+      
         elif(self.currentMonth  == 6):
             print("june\n")
             num = 31
@@ -172,7 +172,7 @@ class month():
             index = self.week.index(self.dayStart)
             tempx = self.week_xpos[index]-20
             tempy = 100
-            self.place_dayFrames(june_frame,tempx,tempy, num)
+            self.place_dayFrames(june_frame,tempx,tempy, num, frame,6)
         elif(self.currentMonth  == 7):
             print("july\n")    
             num = 32
@@ -186,7 +186,7 @@ class month():
             index = self.week.index(self.dayStart)
             tempx = self.week_xpos[index]-20
             tempy = 100
-            self.place_dayFrames(july_frame,tempx,tempy, num)
+            self.place_dayFrames(july_frame,tempx,tempy, num, frame,7)
         elif(self.currentMonth  == 8):
             print("august\n")    
             num = 32
@@ -200,7 +200,7 @@ class month():
             index = self.week.index(self.dayStart)
             tempx = self.week_xpos[index]-20
             tempy = 100
-            self.place_dayFrames(aug_frame,tempx,tempy, num)
+            self.place_dayFrames(aug_frame,tempx,tempy, num, frame,8)
         elif(self.currentMonth  == 9):
             print("september\n")  
             num = 31
@@ -214,8 +214,7 @@ class month():
             index = self.week.index(self.dayStart)
             tempx = self.week_xpos[index]-20
             tempy = 100
-            self.place_dayFrames(sep_frame,tempx,tempy, num)
-        elif(self.currentMonth  == 10):
+            self.place_dayFrames(sep_frame,tempx,tempy, num, frame,9)
             print("october\n") 
             num = 32
             octo_frame = customtkinter.CTkFrame(self.monthframe,width = 1000, height = 650 , fg_color = "#22B14C") 
@@ -228,7 +227,7 @@ class month():
             index = self.week.index(self.dayStart)
             tempx = self.week_xpos[index]-20
             tempy = 100
-            self.place_dayFrames(octo_frame,tempx,tempy, num)
+            self.place_dayFrames(octo_frame,tempx,tempy, num, frame,10)
         elif(self.currentMonth  == 11):
             print("november\n")
             num = 31
@@ -242,7 +241,7 @@ class month():
             index = self.week.index(self.dayStart)
             tempx = self.week_xpos[index]-20
             tempy = 100
-            self.place_dayFrames(nov_frame,tempx,tempy, num)
+            self.place_dayFrames(nov_frame,tempx,tempy, num, frame,11)
         else:
             print("december\n")
             num = 32
@@ -252,9 +251,9 @@ class month():
             index = self.week.index(self.dayStart)
             tempx = self.week_xpos[index]-20
             tempy = 100
-            self.place_dayFrames(dec_frame,tempx,tempy, num)
+            self.place_dayFrames(dec_frame,tempx,tempy, num,frame,12)
     #sets the month if user uses drop down
-    def setMonth(self,choice):
+    def setMonth(self,choice, sideframe):
         if(choice == "January"):
             self.currentMonth = 1 
         elif(choice == "February"):
@@ -284,11 +283,9 @@ class month():
         print("the 1 of the set month starts on:", self.dayStart)
 
            
-       
-       
-       
+        
         print("The month is now:")
-        self.checkMonth()
+        self.checkMonth(sideframe)
 
 
 
