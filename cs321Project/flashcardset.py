@@ -136,8 +136,11 @@ class flashcardset:
         galObject.remove_Set(self)
         setframe.destroy()
         SaveAndLoad.save_data(galObject.returnGal(), galObject.return_saveN())
+        galObject.reload_Gal()
         
-   
+    def remove_Frame(self,setframe):
+       setframe.destroy()
+
 
     #delete page 
     def delete_Page(self,galObject,setframe):
@@ -164,6 +167,7 @@ class flashcardset:
            
        SaveAndLoad.save_data(galObject.returnGal(), galObject.return_saveN());
        scrollframe.destroy()
+       galObject.reload_Gal()
       
        
 
@@ -264,6 +268,7 @@ class flashcardset:
         galObject.add_Set(self)
         SaveAndLoad.save_data(galObject.returnGal(), galObject.return_saveN());
         #destroys the create frame
+        galObject.reload_Gal()
         self.flash_frame.destroy()
         self.printAll()
         

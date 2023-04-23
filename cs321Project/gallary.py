@@ -22,6 +22,8 @@ class gallary():
     saveName  = "data.json"
     #gallarys main frame
     galframe = None
+    # main root
+    mainr = None
    
 
 
@@ -111,6 +113,11 @@ class gallary():
         return
 
 
+
+    def reload_Gal(self):
+        for i in self.galframe.winfo_children():
+            i.destroy()
+        self.display(self.galframe)
     #loads flashcard sets (called on program launch) --DO NOT TOUCH UNLESS YOU'RE CHASE 
     def loadSets(self):
         loader = SaveAndLoad.load_data(self.saveName);
@@ -119,6 +126,7 @@ class gallary():
             return
        
         self.lib = loader.copy();
+
 
     def clearSets(self):
         print("prompting to clear all sets")
@@ -137,6 +145,7 @@ class gallary():
             self.lib = []
             SaveAndLoad.save_data(self.lib,self.saveName)
             warningframe.destroy()
+            self.reload_Gal()
 
 
 
