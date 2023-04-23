@@ -4,6 +4,7 @@ from tkinter import *
 import customtkinter
 import day
 from day import *
+from SaveAndLoad import *
 
 #month holds a list of days
 class month():
@@ -22,13 +23,32 @@ class month():
     dayStart = 'Sunday'
     current_time = datetime.datetime.now()
 
+    #saved name - DO NOT TOUCH THIS
+    saveName  = "Callendata.json"
+
 
     
     #constructor
     def __init__(self, month):
         self.currentMonth = month
+        self.loadCall()
+
+    def loadCall(self):
+        loader = SaveAndLoad.load_data(self.saveName);
+        if loader is None:
+            print("no saved data found")
+            return False
+        self.daysInMonth = loader.copy();
+        return True
+
+    def saveCall(self):
+        SaveAndLoad.save_data(self.daysInMonth,self.saveName)
+
     def setMonthFrame(self,frame):
         self.monthframe = frame
+
+    def numbDays(self):
+        return len(self.daysInMonth)
 
     def weekDay(self,year, month, day):
         offset = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]
@@ -62,10 +82,15 @@ class month():
          counter = 1
     
          while(counter <num):
-             n_day = day()
-             n_day.set_name(counter)
-             n_day.day_frame(frame,tempx,tempy,fr, month)
-             self.daysInMonth.append(n_day)
+             if(len(self.daysInMonth) != counter-1):
+                 self.daysInMonth[counter-1].day_frame(frame,tempx,tempy,fr, month)
+                 if(len(self.daysInMonth[counter-1].events) >= 1):
+                        self.daysInMonth[counter-1].get_d_frame().configure(fg_color = "#167030")
+             else:
+                n_day = day()
+                n_day.set_name(counter)
+                n_day.day_frame(frame,tempx,tempy,fr, month)
+                self.daysInMonth.append(n_day)
 
              tempx= tempx+145
              
@@ -75,7 +100,7 @@ class month():
                tempy = tempy+ 90
               
              counter = counter + 1
-
+         self.saveCall()
     #checks the month and displays the page/calande
     def checkMonth(self, frame):
         self.weekDay(self.current_time.year, self.currentMonth, 1)

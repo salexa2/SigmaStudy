@@ -30,7 +30,7 @@ class Weekday():
    global endTimes
    
    #---------------------------CONSTRUCTOR----------------------
-   def __init__(self,num,plan_frame):
+   def __init__(self,num):
        self.weekdayNum = int(num)
      #  print(self.weekdays[self.weekdayNum])
        self.nameD = self.weekdays[self.weekdayNum]
@@ -39,15 +39,18 @@ class Weekday():
        self.evening= []
        self.startTimes = []
        self.endTimes = []
-       self.weekFrame = customtkinter.CTkFrame(plan_frame, fg_color = "#CFCFCF",width = 1000, height =300)
-       self.mornFrame = customtkinter.CTkScrollableFrame(self.weekFrame, fg_color = "#FFF370",width = 320, height =300)
-       self.afterFrame = customtkinter.CTkScrollableFrame(self.weekFrame,fg_color = "#C1FF5E",width = 320, height =300)
-       self.evenFrame = customtkinter.CTkScrollableFrame(self.weekFrame, fg_color= "#5CD9B6",width = 320, height =300)
      
        self.size = 0
        self. state = -1 
        self.hobbies = 0
    #Refreshes all the day type lists
+
+   def createFrames(self, plan_frame):
+       self.weekFrame = customtkinter.CTkFrame(plan_frame, fg_color = "#CFCFCF",width = 1000, height =300)
+       self.mornFrame = customtkinter.CTkScrollableFrame(self.weekFrame, fg_color = "#FFF370",width = 320, height =300)
+       self.afterFrame = customtkinter.CTkScrollableFrame(self.weekFrame,fg_color = "#C1FF5E",width = 320, height =300)
+       self.evenFrame = customtkinter.CTkScrollableFrame(self.weekFrame, fg_color= "#5CD9B6",width = 320, height =300)
+
    def cleartypes(self):
        for i in self.morn:
            i.getFrame().destroy()

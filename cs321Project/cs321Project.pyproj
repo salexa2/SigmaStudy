@@ -24,6 +24,7 @@
   <ItemGroup>
     <Compile Include="cs321Project.py" />
     <Compile Include="day.py" />
+    <Compile Include="Event.py" />
     <Compile Include="flashcard.py" />
     <Compile Include="flashcardset.py" />
     <Compile Include="gallary.py" />
@@ -31,6 +32,8 @@
     <Compile Include="month.py" />
     <Compile Include="SaveAndLoad.py" />
     <Compile Include="testing321.py" />
+    <Compile Include="Weekday.py" />
+    <Compile Include="WeeklyRoutinePlanner.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

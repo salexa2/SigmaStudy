@@ -38,7 +38,8 @@ current_time = datetime.now()
 #----------------Object-------------------
 gally = gallary(root)
 curr_month = month(current_time.month)
-planner = None
+planner = WeeklyRoutinePlanner()
+
 
 
 
@@ -201,11 +202,13 @@ def calander_page():
      side_taskframe = customtkinter.CTkFrame(calander_frame, width = 250, height = 650) 
      side_taskframe.place(x = 1060, y = 100)
      curr_month.setMonthFrame(calander_frame)
+     #if(curr_month.numbDays() == 0):
      curr_month.checkMonth(side_taskframe)
-     
      #defaut
      default_weekday =  curr_month.weekDay(current_time.year,current_time.month,1)
      print("the first of the default month lies on a ", default_weekday)
+     #curr_month.checkMonth(side_taskframe)
+  
 
 
 
@@ -266,14 +269,14 @@ def plan_page():
      plan_frame = customtkinter.CTkScrollableFrame(root, width = 1150, height =750) 
      plan_frame.grid(column = 1,row =0 ,sticky = "NSEW",padx=5)
      
-     planner = WeeklyRoutinePlanner(plan_frame)
+     planner.planner_getFrame(plan_frame)
      planner.displayPlan()
      #random_button = customtkinter.CTkButton(plan_frame, text = "RandomGenerate", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", state= "disabled",corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: planner.randomGen())
      #random_button.pack(pady = 10)
 
      gen_button = customtkinter.CTkButton(plan_frame, text = "Generate", width = 25,height = 25, text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF", corner_radius = 200,font = ("Helvetica",18),  anchor="center", command = lambda: RequiredForm(plan_frame,planner, gen_button))
      gen_button.pack(pady = 19)
-     
+     planner.show_All()
      
 def settings_page():
     settings_frame = customtkinter.CTkFrame(root, width = 1150, height = 750) 

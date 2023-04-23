@@ -11,15 +11,23 @@ class day():
     #----------VARIABLES--------
     global day_name
     global events 
-    global month 
+    global month
+    global d_frame
 
     def __init__(self):
        self.day_name = 1
        self.events = []
        self.month = 1
+       self.day_frame = None
     #sets the name of a day object
     def set_name(self,name):
         self.day_name = name
+
+    def get_events(self):
+        return self.events
+
+    def get_d_frame(self):
+        return self.d_frame
     #visual representation of day object
     def day_frame(self, month_frame,posx,posy, frame, framemonth):
        day_frame = customtkinter.CTkButton(month_frame, text_color = "#FFFFFF", text = self.day_name,font=customtkinter.CTkFont(size=25, weight="bold"), hover_color="#DBDBDB", fg_color="transparent",width = 50,height = 50, command =lambda: self.event_display(frame , day_frame) ) 
@@ -29,6 +37,7 @@ class day():
        if(self.day_name == current_time.day and self.month == current_time.month):
            day_frame.configure(fg_color = "#31FF6D")
            day_frame.configure(corner_radius = 10)
+       self.d_frame = day_frame
            
        
 
@@ -62,6 +71,8 @@ class day():
         self.events.append(Event(entry.get(),textbox.get("1.0",END)))
         frame.destroy()
         self.event_display(basefr, day_frame)
+        self.d_frame = day_frame
+        
         
 
    

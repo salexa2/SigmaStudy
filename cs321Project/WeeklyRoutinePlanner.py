@@ -9,6 +9,7 @@ from tkinter import *
 import customtkinter
 import random 
 from datetime import *
+from SaveAndLoad import *
 
 #planner that generates a routine for a user
 class WeeklyRoutinePlanner():
@@ -53,18 +54,27 @@ class WeeklyRoutinePlanner():
  help_button_2 = None
  help_button_3 = None
  help_button_4 = None
+
+
+ #saved name - DO NOT TOUCH THIS
+ saveName  = "PlannerData.json"
+
  #----------------------------VARIABLE END--------------------
 
  #-------------------------CONSTRUCTOR--------------------
- def __init__(self, p):
-     self.planner = [Weekday(0,p),Weekday(1,p),Weekday(2,p),Weekday(3,p),Weekday(4,p),Weekday(5,p),Weekday(6,p)]
+ def __init__(self):
+     if(self.loadPlanner() == False):
+        self.planner = [Weekday(0),Weekday(1),Weekday(2),Weekday(3),Weekday(4),Weekday(5),Weekday(6)]
 
-     self.mainf = p 
-
+     
 
 
  #-------------------FORMS-------------------#
  
+ def planner_getFrame(self,p):
+     for i in self.planner:
+        i.createFrames(p)
+
  #Displays the hobby form
  def hobbyPage(self,form_frame,nextbutton):
      self.currentType = 1
@@ -119,6 +129,17 @@ class WeeklyRoutinePlanner():
  def on_leaveh(self, enter):
         self.help_button_4.configure(text="")
 
+
+ def loadPlanner(self):
+    loader = SaveAndLoad.load_data(self.saveName);
+    if loader is None:
+        print("no saved data found")
+        return False
+    self.planner = loader.copy();
+    return True
+
+ def savePlanner(self):
+    SaveAndLoad.save_data(self.planner,self.saveName)
 
  #Displays the Requirement form
  def formPage(self,form_frame):
@@ -238,6 +259,7 @@ class WeeklyRoutinePlanner():
 
  #Displays planner at start 
  def displayPlan(self)  :
+     #self.loadPlanner()
      for i in self.planner:
          i.getweekFrame()
      return
@@ -245,6 +267,7 @@ class WeeklyRoutinePlanner():
  def randomGen(self):
      for h in self.planner:
          h.randomize()
+     self.savePlanner()
 #prints plan to terminal
  def printValues(self):
 
@@ -256,6 +279,7 @@ class WeeklyRoutinePlanner():
      print("taskETime", self.taskETime.get())
 #Displays plan in planner
  def printPlan(self,frame,gen):
+     self.savePlanner()
      if(self.currentType == 0):
           self.getValues()
      else:
@@ -263,15 +287,19 @@ class WeeklyRoutinePlanner():
             self.getValuesH() #saves any h values
     
      print("WEEKLY ROUTINE\n")
-     for m in self.planner:
-          m.showAll()
+     self.show_All()
      
      frame.destroy()
      gen.configure(state = "normal")
 
+
+ def show_All(self):
+     for m in self.planner:
+          m.showAll()
  #Clears a planner
  def reset(self):
     self.clearA()
+    #self.savePlanner()
  #Hobby-gets the times of day from a hobby
  def optionmenu_callbackT(self,choice):#times a day
     #print("optionmenuT dropdown clicked:", choice)
@@ -386,7 +414,7 @@ class WeeklyRoutinePlanner():
                     #If no conflicts adds the task to planner and returns false.
                     for d in self.savedValues:
                         self.planner[d].createARequiredTask(self.taskName.get(),self.military_time,self.military_time2)
-
+                    self.savePlanner()
                     
                     return False
 
@@ -417,7 +445,7 @@ class WeeklyRoutinePlanner():
      for v in temp :
         print("value got:",v)
         self.planner[v].createAHobby(self.taskName.get(),self.times,float(self.maxx),self.when,self.pos)
-     
+     self.savePlanner()
      return False
          
     
