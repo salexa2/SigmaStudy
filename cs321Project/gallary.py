@@ -9,7 +9,7 @@ import flashcardset
 from flashcardset import *
 from SaveAndLoad import *
  
-
+#gallary holds the flashcard sets for use
 class gallary():
 
 
@@ -46,10 +46,11 @@ class gallary():
         return len(self.lib)
 
     #call to create a set
-    def create_Set(self,upload_frame):
+    def create_Set(self,upload_frame, button):
+        button.configure(state = "disabled")
         print("Unit Testing 2.1: Flashcard set created\n")
         flashset = flashcardset(upload_frame)
-        flashset.creating_set_page(self)
+        flashset.creating_set_page(self, button)
        # return
 
      #adds a set to the gallary

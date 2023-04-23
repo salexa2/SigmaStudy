@@ -10,6 +10,7 @@ import customtkinter
 import random 
 from datetime import *
 
+#planner that generates a routine for a user
 class WeeklyRoutinePlanner():
 
 #------------------------------------------VARIABLES-----------------
@@ -48,6 +49,10 @@ class WeeklyRoutinePlanner():
  errorType = ['*Incomplete Task!*','!PM/AM Invalid!*', '*Invalid Time Format!-H:M AM/PM(Spaced)*', '*Conflicting Times!*']
  error = None 
  hobbysize = 0
+ help_button_  = None
+ help_button_2 = None
+ help_button_3 = None
+ help_button_4 = None
  #----------------------------VARIABLE END--------------------
 
  #-------------------------CONSTRUCTOR--------------------
@@ -55,7 +60,6 @@ class WeeklyRoutinePlanner():
      self.planner = [Weekday(0,p),Weekday(1,p),Weekday(2,p),Weekday(3,p),Weekday(4,p),Weekday(5,p),Weekday(6,p)]
 
      self.mainf = p 
-     
 
 
 
@@ -75,33 +79,70 @@ class WeeklyRoutinePlanner():
      hobby_frame = customtkinter.CTkFrame(form_frame, fg_color = "#279400", width = 1000, height = 100) 
      hobby_frame.pack(side = TOP)
 
-     self.taskName = customtkinter.CTkEntry(master=hobby_frame, placeholder_text="TaskName")
+     self.help_button_3 = customtkinter.CTkLabel(hobby_frame, text= "Tips")
+     self.help_button_3.place(x = 200, y = 10)
+     self.help_button_4 = customtkinter.CTkLabel(hobby_frame, text= "", width = 40)
+     self.help_button_4.place(x =350, y = 10)
+
+
+     self.help_button_3.bind("<Enter>", self.on_enterh)
+     self.help_button_3.bind("<Leave>", self.on_leaveh)
+
+     self.taskName = customtkinter.CTkEntry(master=hobby_frame, placeholder_text="Hobby Name")
     
      self.taskName.place(x = 10, y = 10)
 
-     combobox1 = customtkinter.CTkOptionMenu(hobby_frame, fg_color = "#FFFFFF", dropdown_fg_color= "#E0E0E0" , font = ("Helvetica",18),  width = 20, height = 25,values=['1','2','3','4','5','6','7'] ,command = self.optionmenu_callbackT ,variable = optionmenu_var)
+     combobox1 = customtkinter.CTkOptionMenu(hobby_frame, fg_color = "#FFFFFF", text_color = "#000000", dropdown_text_color = "#000000",button_color= "#E3E3E3" , button_hover_color = "#E3E3E3", dropdown_fg_color = "#FFFFFF", dropdown_hover_color = "#E3E3E3",font = ("Helvetica",18),  width = 20, height = 25,values=['1','2','3','4','5','6','7'] ,command = self.optionmenu_callbackT ,variable = optionmenu_var)
      combobox1.place(x=10,y=55)
 
-     combobox2 = customtkinter.CTkOptionMenu(hobby_frame,   fg_color = "#FFFFFF", dropdown_fg_color= "#E0E0E0",font = ("Helvetica",18), dropdown_hover_color = "#FFFFFF" , width = 30, height = 25,values=['1','2','3','4','5','6','7'], command = self.optionmenu_callbackM,variable = optionmenu_var1)
+     combobox2 = customtkinter.CTkOptionMenu(hobby_frame,   fg_color = "#FFFFFF", text_color = "#000000",dropdown_text_color = "#000000",button_color= "#E3E3E3", button_hover_color = "#E3E3E3",dropdown_fg_color = "#FFFFFF",dropdown_hover_color = "#E3E3E3",font = ("Helvetica",18) , width = 30, height = 25,values=['1','2','3','4','5','6','7'], command = self.optionmenu_callbackM,variable = optionmenu_var1)
      combobox2.place(x=190,y=55)
 
-     combobox3 = customtkinter.CTkOptionMenu(hobby_frame,  fg_color = "#FFFFFF", dropdown_fg_color= "#E0E0E0",font = ("Helvetica",18), dropdown_hover_color = "#FFFFFF" , width = 30, height = 25,values=["Morning", "Afternoon", "Evening"], command = self.optionmenu_callbackW,variable = optionmenu_var2)
+     combobox3 = customtkinter.CTkOptionMenu(hobby_frame,  fg_color = "#FFFFFF", text_color = "#000000",dropdown_text_color = "#000000", button_color= "#E3E3E3",button_hover_color = "#E3E3E3",dropdown_fg_color = "#FFFFFF", dropdown_hover_color = "#E3E3E3",font = ("Helvetica",18) , width = 30, height = 25,values=["Morning", "Afternoon", "Evening"], command = self.optionmenu_callbackW,variable = optionmenu_var2)
      combobox3.place(x=390,y=55)
 
-     combobox4 = customtkinter.CTkOptionMenu(hobby_frame ,  fg_color = "#FFFFFF", dropdown_fg_color= "#E0E0E0", font = ("Helvetica",18), dropdown_hover_color = "#FFFFFF" , width = 30, height = 25,values=["Before", "After", "Between"], command = self.optionmenu_callbackP, variable = optionmenu_var3)
+     combobox4 = customtkinter.CTkOptionMenu(hobby_frame ,  fg_color = "#FFFFFF", text_color = "#000000", dropdown_text_color = "#000000",button_color= "#E3E3E3", button_hover_color = "#E3E3E3",dropdown_fg_color = "#FFFFFF", dropdown_hover_color = "#E3E3E3",font = ("Helvetica",18) , width = 30, height = 25,values=["Before", "After", "Between"], command = self.optionmenu_callbackP, variable = optionmenu_var3)
      combobox4.place(x= 550,y=55)
     
      divider = customtkinter.CTkLabel(master = form_frame, text="___________________________________________________________________________________________________________________________________________________________________________________________", font=customtkinter.CTkFont(size=20, weight="bold"))
      divider.pack()
   
+ def on_enter(self, event):
+        self.help_button_2.configure(text="*Time Fomat:[H:M AM/PM]\nRequired Tasks are mandatory\n with an assigned time. ")
+
+ def on_leave(self, enter):
+        self.help_button_2.configure(text="")
+ 
+ def on_enterh(self, event):
+        self.help_button_4.configure(text="*Hobbies are not mandatory and will be assigned a random time.")
+
+ def on_leaveh(self, enter):
+        self.help_button_4.configure(text="")
+
+
  #Displays the Requirement form
  def formPage(self,form_frame):
      self.switch = -1
      self.currentType = 0
      #task boxes 
+
+   
+     
+     
+
      self.task_frame = customtkinter.CTkFrame(form_frame, fg_color = "#279400", width = 1000, height = 100) 
      self.task_frame.pack(side = TOP)
-     self.taskName = customtkinter.CTkEntry(master=self.task_frame, placeholder_text="TaskName")
+     
+     self.help_button_ = customtkinter.CTkLabel(self.task_frame, text= "Tips")
+     self.help_button_.place(x = 575, y = 10)
+     self.help_button_2 = customtkinter.CTkLabel(self.task_frame, text= "", width = 40)
+     self.help_button_2.place(x =635, y = 10)
+
+
+     self.help_button_.bind("<Enter>", self.on_enter)
+     self.help_button_.bind("<Leave>", self.on_leave)
+
+     self.taskName = customtkinter.CTkEntry(master=self.task_frame, placeholder_text="Required Task Name")
      self.taskName.place(x = 10, y = 10)
 
      self.error = customtkinter.CTkLabel(master = self.task_frame, text="", text_color ="#FF0000",font=customtkinter.CTkFont(size=10, weight="bold")) 
@@ -176,12 +217,12 @@ class WeeklyRoutinePlanner():
                           width = 10,text_color = "#FFFFFF", font = ("Helvetica",18))
 
      Button1.place(x = 10, y = 60)
-     Button2.place(x = 110, y = 60)
-     Button3.place(x = 210, y = 60)
-     Button4.place(x = 310, y = 60)
-     Button5.place(x = 410, y = 60)
-     Button6.place(x = 510, y = 60)
-     Button7.place(x = 610, y = 60)
+     Button2.place(x = 120, y = 60)
+     Button3.place(x = 220, y = 60)
+     Button4.place(x = 330, y = 60)
+     Button5.place(x = 460, y = 60)
+     Button6.place(x = 570, y = 60)
+     Button7.place(x = 680, y = 60)
 
      
      

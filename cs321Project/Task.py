@@ -5,6 +5,8 @@ import random
 import tkinter 
 from tkinter import * 
 import customtkinter
+
+#task in planner, either a required task or a hobby.Required tasks are mandatory, hobbies are not and are assigned random times. 
 class Task():
 
     now = datetime.datetime.now()

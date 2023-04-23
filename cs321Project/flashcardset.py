@@ -8,6 +8,7 @@ from SaveAndLoad import *
 #changes
 #play page 
 
+#Holds a list of flashcards
 class flashcardset:
 
     #-------------GLOBAL VARIABLE------------------
@@ -257,23 +258,24 @@ class flashcardset:
          return
 
     #creates a flashcard  and inserts it into set after + is hit
-    def create_a_Card(self,front,back,galObject):
+    def create_a_Card(self,front,back,galObject,button):
         print("Unit Testing 2.3: Creates a card\n")
         new = flashcard()
         new.setFront(front)
         new.setBack(back)
-        self.insertCard(new,galObject)
+        self.insertCard(new,galObject,button)
     
     #inserts card into set
-    def insertCard(self,card,galObject):
+    def insertCard(self,card,galObject, button):
         print("Unit Testing 2.4: Inserts a card into a set\n")
         self.flashset.append(card)
         print("Unit Testing 2.5: Calls the creating set page.n")
-        self.creating_set_page(galObject)
+        self.creating_set_page(galObject,button)
 
 
     #adds a flashcard set to the gallary object
-    def addtoGal(self,galObject):
+    def addtoGal(self,galObject,button):
+        
         #creats a name for set otherwise no name
         galObject.loadSets()
         dialog = customtkinter.CTkInputDialog(text="What would you like to name your set?", title= "New FlashCard Set")
@@ -283,10 +285,11 @@ class flashcardset:
         SaveAndLoad.save_data(galObject.returnGal(), galObject.return_saveN());
         #destroys the create frame
         self.flash_frame.destroy()
+        button.configure(state = "normal")
         self.printAll()
         
     #UI for creating a new set 
-    def creating_set_page(self, galObject):
+    def creating_set_page(self, galObject, button):
          print("Unit Testing 2.2: Flashcard Page should show\n")
      
         #frontinput, 
@@ -298,11 +301,11 @@ class flashcardset:
          back_input.insert(END,"Enter Definition")
  
          #creates another card, inserts previous card, doesn't insert a card till the "+" button is hit.
-         next_button = customtkinter.CTkButton(self.flash_frame, text= "➕", text_color ="#000000", fg_color= "#FFFFFF",hover_color = "#CFCFCF" , corner_radius = 200, width = 30, height = 30, font = ("Helvetica",18), anchor="center", command = lambda:self.create_a_Card(front_card_input.get(), back_input.get("1.0",END),galObject))
+         next_button = customtkinter.CTkButton(self.flash_frame, text= "➕", text_color ="#000000", fg_color= "#FFFFFF",hover_color = "#CFCFCF" , corner_radius = 200, width = 30, height = 30, font = ("Helvetica",18), anchor="center", command = lambda:self.create_a_Card(front_card_input.get(), back_input.get("1.0",END),galObject,button))
          next_button.place(x=420, y= 338)
 
          #creates a set
-         done_button = customtkinter.CTkButton(self.flash_frame, text = "✔️" , text_color ="#000000", fg_color= "#FFFFFF", hover_color = "#CFCFCF" ,corner_radius = 200, width = 25, height = 30, font = ("Helvetica",18), anchor="center", command = lambda: self.addtoGal(galObject))
+         done_button = customtkinter.CTkButton(self.flash_frame, text = "✔️" , text_color ="#000000", fg_color= "#FFFFFF", hover_color = "#CFCFCF" ,corner_radius = 200, width = 25, height = 30, font = ("Helvetica",18), anchor="center", command = lambda: self.addtoGal(galObject,button))
          done_button.place(x=480, y= 338)
 
          cancel_button = customtkinter.CTkButton(self.flash_frame, text= "❌", text_color ="#FFFFFF", fg_color= "transparent" , corner_radius = 200, width = 30, height = 30, font = ("Helvetica",18), anchor="center", command = lambda:self.flash_frame.destroy())

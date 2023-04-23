@@ -1,12 +1,10 @@
-#creates a flashcard object 
-#changed:
-#remove function
 
 #from ast import Lambda  i commented this out 4/9, if program acts up uncomment it - shadai 
 from tkinter import * 
 import customtkinter
 from SaveAndLoad import *
 
+#holds front and back input
 class flashcard:
  
    #front card text
