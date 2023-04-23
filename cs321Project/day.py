@@ -18,7 +18,7 @@ class day():
        self.day_name = 1
        self.events = []
        self.month = 1
-       self.day_frame = None
+       self.d_frame = None
     #sets the name of a day object
     def set_name(self,name):
         self.day_name = name
@@ -30,14 +30,14 @@ class day():
         return self.d_frame
     #visual representation of day object
     def day_frame(self, month_frame,posx,posy, frame, framemonth):
-       day_frame = customtkinter.CTkButton(month_frame, text_color = "#FFFFFF", text = self.day_name,font=customtkinter.CTkFont(size=25, weight="bold"), hover_color="#DBDBDB", fg_color="transparent",width = 50,height = 50, command =lambda: self.event_display(frame , day_frame) ) 
-       day_frame.place(x = posx, y= posy)
+       d_frame = customtkinter.CTkButton(month_frame, text_color = "#FFFFFF", text = self.day_name,font=customtkinter.CTkFont(size=25, weight="bold"), hover_color="#DBDBDB", fg_color="transparent",width = 50,height = 50, command =lambda: self.event_display(frame , d_frame) ) 
+       d_frame.place(x = posx, y= posy)
        current_time = datetime.datetime.now()
        self.month = framemonth
        if(self.day_name == current_time.day and self.month == current_time.month):
-           day_frame.configure(fg_color = "#31FF6D")
-           day_frame.configure(corner_radius = 10)
-       self.d_frame = day_frame
+           d_frame.configure(fg_color = "#31FF6D")
+           d_frame.configure(corner_radius = 10)
+       self.d_frame = d_frame
            
        
 

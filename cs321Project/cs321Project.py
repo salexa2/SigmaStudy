@@ -10,7 +10,8 @@ from month import *
 import datetime
 import WeeklyRoutinePlanner
 from WeeklyRoutinePlanner import  *
- 
+import Year
+from Year import *
 
 #study app that aids students in studying
 
@@ -32,12 +33,13 @@ root.grid_columnconfigure(1, weight=3)
 #---------------------variables-------------------
 
 saveName = "data.json"
-current_time = datetime.now()
+current_time = datetime.datetime.now()
 
 
 #----------------Object-------------------
 gally = gallary(root)
-curr_month = month(current_time.month)
+year = Year(current_time.month)
+#curr_month = month(current_time.month)
 planner = WeeklyRoutinePlanner()
 
 
@@ -201,22 +203,23 @@ def calander_page():
      side_label.place(x=1150,y=70)
      side_taskframe = customtkinter.CTkFrame(calander_frame, width = 250, height = 650) 
      side_taskframe.place(x = 1060, y = 100)
-     curr_month.setMonthFrame(calander_frame)
-     #if(curr_month.numbDays() == 0):
-     curr_month.checkMonth(side_taskframe)
-     #defaut
-     default_weekday =  curr_month.weekDay(current_time.year,current_time.month,1)
-     print("the first of the default month lies on a ", default_weekday)
-     #curr_month.checkMonth(side_taskframe)
-  
 
+     #
+     #if(curr_month.numbDays() == 0):
+     #curr_month.checkMonth(side_taskframe)
+     #defaut
+     #default_weekday =  curr_month.weekDay(current_time.year,current_time.month,1)
+     #print("the first of the default month lies on a ", default_weekday)
+     #curr_month.checkMonth()
+     year.setMonthFrame(calander_frame)
+     year.showMonth(side_taskframe)
 
 
      optionmenu_var = customtkinter.StringVar(value="April")
      #display month 
      monthmenu = customtkinter.CTkOptionMenu(calander_frame, fg_color = "#279400",  button_color = "#279400", dropdown_hover_color = "#1C6B00" , width = 40,
      height = 25,values=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-     font=customtkinter.CTkFont(size=20), command = lambda choice: curr_month.setMonth(choice,side_taskframe), variable = optionmenu_var)
+     font=customtkinter.CTkFont(size=20), command = lambda choice: year.setMonth(choice,side_taskframe), variable = optionmenu_var)
      monthmenu.place(x = 500, y = 50)
 
 

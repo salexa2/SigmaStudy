@@ -17,9 +17,13 @@ class month():
                   'Thursday',  
                   'Friday', 
                   'Saturday']
+    monthnames  = ['January','February','March','April', 'May', 'June', 'July','August', 'September','October','November','December']
+   
+    monthdays = [32,29,32,31,32,31,32,32,31,32,31,32]
     week_xpos = []
     monthframe = None
-    currentMonth = None
+    currentMonth = 0
+    
     dayStart = 'Sunday'
     current_time = datetime.datetime.now()
 
@@ -31,6 +35,7 @@ class month():
     #constructor
     def __init__(self, month):
         self.currentMonth = month
+
         self.loadCall()
 
     def loadCall(self):
@@ -102,10 +107,24 @@ class month():
              counter = counter + 1
          self.saveCall()
     #checks the month and displays the page/calande
-    def checkMonth(self, frame):
-        self.weekDay(self.current_time.year, self.currentMonth, 1)
-       
-       
+    def createMonth(self, frame):
+            self.weekDay(self.current_time.year, self.currentMonth, 1)
+        
+            numdays = self.monthdays[self.currentMonth - 1]
+
+   
+            mon_frame = customtkinter.CTkFrame(self.monthframe,width = 1000, height = 650 , fg_color = "#22B14C") 
+            mon_frame.place(x = 50, y = 100)
+
+            self.place_days(mon_frame)
+           
+
+            index = self.week.index(self.dayStart)
+            tempx = self.week_xpos[index]-20
+            tempy = 100
+            self.place_dayFrames(mon_frame,tempx,tempy,numdays,frame, self.currentMonth)
+         
+            ''''
         if(self.currentMonth  == 1):
             #display that months page
             print("january") 
@@ -277,7 +296,9 @@ class month():
             tempx = self.week_xpos[index]-20
             tempy = 100
             self.place_dayFrames(dec_frame,tempx,tempy, num,frame,12)
+            '''
     #sets the month if user uses drop down
+    '''
     def setMonth(self,choice, sideframe):
         if(choice == "January"):
             self.currentMonth = 1 
@@ -306,6 +327,7 @@ class month():
 
         self.dayStart = self.weekDay(self.current_time.year, self.currentMonth, 1)
         print("the 1 of the set month starts on:", self.dayStart)
+       
 
            
         
@@ -313,7 +335,7 @@ class month():
         self.checkMonth(sideframe)
 
 
-
+ '''
 
 
 
