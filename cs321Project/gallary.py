@@ -113,12 +113,21 @@ class gallary():
             count+=1
         return
 
+    def createButtons(self,galf):
+        #BUTTON TO CREATE NEW SET IN GALLERY
+        create_set_button = customtkinter.CTkButton(galf, text= "Create Set", fg_color= "#279400", hover_color="#1C6B00", command = lambda: self.create_Set(galf, create_set_button))
+        create_set_button.place(x=10, y=10)
+   
 
+        #BUTTON TO CLEAR ALL SETS
+        create_clear_button = customtkinter.CTkButton(galf, text= "Clear All Sets", fg_color= "#279400", hover_color="#1C6B00", command = lambda: self.clearSets())
+        create_clear_button.place(x=200, y=10)
 
     def reload_Gal(self):
         for i in self.galframe.winfo_children():
             i.destroy()
         self.display(self.galframe)
+        self.createButtons(self.galframe)
     #loads flashcard sets (called on program launch) --DO NOT TOUCH UNLESS YOU'RE CHASE 
     def loadSets(self):
         loader = SaveAndLoad.load_data(self.saveName);

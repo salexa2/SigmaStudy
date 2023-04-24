@@ -181,15 +181,7 @@ def gallary_page():
    #upload_label.place(x=600,y=0)
 
    gally.set_galFrame(gallary_frame)
- 
-   #BUTTON TO CREATE NEW SET IN GALLERY
-   create_set_button = customtkinter.CTkButton(gallary_frame, text= "Create Set", fg_color= "#279400", hover_color="#1C6B00", command = lambda: gally.create_Set(gallary_frame, create_set_button))
-   create_set_button.place(x=10, y=10)
-   
 
-    #BUTTON TO CLEAR ALL SETS
-   create_clear_button = customtkinter.CTkButton(gallary_frame, text= "Clear All Sets", fg_color= "#279400", hover_color="#1C6B00", command = lambda: gally.clearSets())
-   create_clear_button.place(x=200, y=10)
                              
 
    print("Unit Testing 3.0: Gallary page: gallary page should show\n")
@@ -200,6 +192,7 @@ def gallary_page():
   
    if(gally.getSize()>0):
        gally.display(gallary_frame)
+   gally.createButtons(gallary_frame)
 
 
 def calander_page():
