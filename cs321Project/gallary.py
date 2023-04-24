@@ -153,7 +153,7 @@ class gallary():
     def clearSets(self):
         print("prompting to clear all sets")
         warningframe = customtkinter.CTkFrame(self.galframe, width = 400, height = 150)
-        warningframe.place(x = 0, y = 650)
+        warningframe.place(x=0, y=10)
 
 
         w_label = customtkinter.CTkLabel(warningframe, text = "Are you sure you\n want to delete all sets?",font=customtkinter.CTkFont(size=20, weight="bold"))
