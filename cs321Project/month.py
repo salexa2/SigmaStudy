@@ -4,7 +4,6 @@ from tkinter import *
 import customtkinter
 import day
 from day import *
-from SaveAndLoad import *
 
 #month holds a list of days
 class month():
@@ -46,18 +45,6 @@ class month():
         #saved name - DO NOT TOUCH THIS
         self.saveName  = "Callendata.json"
 
-        self.loadCall()
-
-    def loadCall(self):
-        loader = SaveAndLoad.load_data(self.saveName);
-        if loader is None:
-            print("no saved data found")
-            return False
-        self.daysInMonth = loader.copy();
-        return True
-
-    def saveCall(self):
-        SaveAndLoad.save_data(self.daysInMonth,self.saveName)
 
     def setMonthFrame(self,frame):
         self.monthframe = frame
@@ -117,7 +104,7 @@ class month():
                tempy = tempy+ 90
               
              counter = counter + 1
-         self.saveCall()
+
     #checks the month and displays the page/calande
     def createMonth(self, frame):
             self.weekDay(self.current_time.year, self.currentMonth, 1)
