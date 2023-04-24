@@ -1,6 +1,7 @@
 ﻿import tkinter 
 from tkinter import * 
-from minimalistic import extract_video_id, get_transcript, save_transcript_to_file
+from minimalistic import extract_video_id, get_transcript, save_transcript_to_file, extract_keywords, search_web, scrape_content, generate_questions_and_answers, save_bulleted_list_to_file, get_bulleted_list
+import re
 import customtkinter
 from tkinter import filedialog
 import gallary 
@@ -104,6 +105,46 @@ def getLink(linkbar, default_text):
     else:
         print("Invalid YouTube URL")
 
+def get_url_and_summarize(entry, text_widget):
+    url = entry.get()
+    if url:
+        summarized_text = summarize_transcript(url)
+        if summarized_text:
+            text_widget.delete(1.0, END)
+            text_widget.insert(END, summarized_text)
+
+
+def clean_generated_text(text):
+    filtered_output = re.sub(r'<extra_id_\d+>', '', text).strip()
+    cleaned_output = filtered_output.replace('<pad>', '').replace('</s>', '').strip()
+    return cleaned_output
+
+
+def summarize_transcript(url):
+    if not url:
+        return None
+
+    video_id = extract_video_id(url)
+
+    if not video_id:
+        return None
+
+    transcript = get_transcript(video_id)
+    if not transcript:
+        return None
+
+    keywords = extract_keywords(transcript)
+    query = ' '.join(keywords)
+    search_results = search_web(query)
+
+    scraped_contents = [scrape_content(result_url) for result_url in search_results]
+    scraped_contents_str = " ".join(scraped_contents)
+
+    questions_and_answers = generate_questions_and_answers(scraped_contents_str)
+    cleaned_output = clean_generated_text(questions_and_answers)
+
+    bulleted_list = get_bulleted_list(cleaned_output)
+    return bulleted_list
 
 
     #linkbar code to text..<inset cide>..... output a text_f - replace none
@@ -166,7 +207,8 @@ def upload_page():
 
 
    #CREATE ENTRY BUTTON FOR FARAZZ
-
+   summarize_button = customtkinter.CTkButton(upload_frame, text="Summarize", fg_color="#279400", hover_color="#1C6B00", command=lambda: get_url_and_summarize(link_entry, default_text))
+   summarize_button.place(x=600, y=50)
 
 
    print("Unit Testing 1.0: Upload page: upload page should show\n")
