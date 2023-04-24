@@ -8,12 +8,10 @@ class Year():
     global monthnames 
     global currmonth
 
-    #saved name - DO NOT TOUCH THIS
-    saveName  = "Callendata.json"
 
     def __init__(self, mon):
-        if(self.loadCall() == False):
-            self.months = [month(0,self),month(1,self),month(2,self),month(3,self),month(4,self), month(5,self), month(6,self), month(7,self), month(8,self) , month(9,self), month(10,self) , month(11,self)]
+        self.months = [month(0),month(1),month(2),month(3),month(4), month(5), month(6), month(7), month(8) , month(9), month(10) , month(11)]
+     
         self.currmonth= mon
 
     def setMonthFrame(self, calandar_fr):

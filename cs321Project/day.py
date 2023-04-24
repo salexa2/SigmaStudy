@@ -38,7 +38,8 @@ class day():
            d_frame.configure(fg_color = "#31FF6D")
            d_frame.configure(corner_radius = 10)
        self.d_frame = d_frame
-           
+       if(len(self.events)>0):
+           self.d_frame.configure(fg_color = "#167030")
        
 
     #displays the events in side bar

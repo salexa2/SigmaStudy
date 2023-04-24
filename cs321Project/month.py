@@ -87,6 +87,7 @@ class month():
              
              if(len(self.daysInMonth)> counter-1 ):
                  print("this should show old months\n")
+                 self.daysInMonth[counter-1].day_frame(frame,tempx,tempy,fr, month)
                  #self.daysInMonth[ counter-1].get_d_frame().place(x =tempx, y = tempy )
                 # if(len(self.daysInMonth[counter-1].events) >= 1):
                  #       configure(fg_color = "#167030")
