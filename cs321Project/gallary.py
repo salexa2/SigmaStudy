@@ -107,9 +107,9 @@ class gallary():
                
                 posx+=150
                
-            if(posx == 1200):
+            if(posx > 1100):
                 posx = 50
-                posy+= 100
+                posy+= 150
             count+=1
         return
 
