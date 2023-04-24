@@ -9,32 +9,42 @@ from SaveAndLoad import *
 #month holds a list of days
 class month():
      #list of days- we wanna save this so when a month is displayed the eveents for that day are saved
-    daysInMonth = []
-    week   = ['Sunday', 
-                  'Monday', 
-                  'Tuesday', 
-                  'Wednesday', 
-                  'Thursday',  
-                  'Friday', 
-                  'Saturday']
-    monthnames  = ['January','February','March','April', 'May', 'June', 'July','August', 'September','October','November','December']
-   
-    monthdays = [32,29,32,31,32,31,32,32,31,32,31,32]
-    week_xpos = []
-    monthframe = None
-    currentMonth = 0
+    global daysInMonth 
+    global week  
+    global monthnames 
+    global monthdays 
+    global week_xpos 
+    global monthframe
+    global currentMonth
     
-    dayStart = 'Sunday'
-    current_time = datetime.datetime.now()
+    global dayStart
+    global current_time 
 
     #saved name - DO NOT TOUCH THIS
-    saveName  = "Callendata.json"
+    global saveName 
 
 
     
     #constructor
     def __init__(self, month):
         self.currentMonth = month
+        self.daysInMonth = []
+        self.week   = ['Sunday', 
+                  'Monday', 
+                  'Tuesday', 
+                  'Wednesday', 
+                  'Thursday',  
+                  'Friday', 
+                  'Saturday']
+        self.monthnames  = ['January','February','March','April', 'May', 'June', 'July','August', 'September','October','November','December']
+   
+        self.monthdays = [32,29,32,31,32,31,32,32,31,32,31,32]
+        self.week_xpos = []
+        self.monthframe = None
+        self.dayStart = 'Sunday'
+        self. current_time = datetime.datetime.now()
+        #saved name - DO NOT TOUCH THIS
+        self.saveName  = "Callendata.json"
 
         self.loadCall()
 
@@ -87,10 +97,12 @@ class month():
          counter = 1
     
          while(counter <num):
-             if(len(self.daysInMonth) != counter-1):
-                 self.daysInMonth[counter-1].day_frame(frame,tempx,tempy,fr, month)
-                 if(len(self.daysInMonth[counter-1].events) >= 1):
-                        self.daysInMonth[counter-1].get_d_frame().configure(fg_color = "#167030")
+             
+             if(len(self.daysInMonth)> counter-1 ):
+                 print("this should show old months\n")
+                 self.daysInMonth[ counter-1].get_d_frame().place(x =tempx, y = tempy )
+                # if(len(self.daysInMonth[counter-1].events) >= 1):
+                 #       configure(fg_color = "#167030")
              else:
                 n_day = day()
                 n_day.set_name(counter)
