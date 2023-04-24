@@ -289,8 +289,9 @@ class flashcardset:
         SaveAndLoad.save_data(galObject.returnGal(), galObject.return_saveN());
         #destroys the create frame
         galObject.reload_Gal()
+        #button.configure(state = "normal")
         self.flash_frame.destroy()
-        button.configure(state = "normal")
+        
         self.printAll()
         
     #UI for creating a new set 
