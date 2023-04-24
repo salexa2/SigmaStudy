@@ -132,7 +132,7 @@ class Weekday():
         if(item.returnPos() == 0):
             print("Unit Testing: Hobby appended to before")
             #if(he first element is say 12 pm which is the start of afternoon, you caant put afternoon task before it)
-            if(planner[0].getStartTime().hour == 12 |planner[0].getStartTime().hour == 16 | planner[0].getStartTime().hour == 1 and planner[0].getType() == 0):
+            if(planner[0].getStartTime().hour == 12 |planner[0].getStartTime().hour == 16 | planner[0].getStartTime().hour == 0 and planner[0].getType() == 0):
              
                         planner.append(item)
             else:
