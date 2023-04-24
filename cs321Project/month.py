@@ -19,8 +19,6 @@ class month():
     global dayStart
     global current_time 
 
-    #saved name - DO NOT TOUCH THIS
-    global saveName 
 
 
     

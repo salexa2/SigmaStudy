@@ -128,6 +128,8 @@ class gallary():
        
         self.lib = loader.copy();
 
+    def saveSets(self):
+        SaveAndLoad.save_data(self.lib,self.saveName)
 
     def clearSets(self):
         print("prompting to clear all sets")

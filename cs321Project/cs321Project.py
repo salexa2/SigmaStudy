@@ -12,11 +12,14 @@ import WeeklyRoutinePlanner
 from WeeklyRoutinePlanner import  *
 import Year
 from Year import *
+import atexit
+
 
 #study app that aids students in studying
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("green")  # Themes: "blue" (standard), "green", "dark-blue"
+
 
  # configure window
 root = customtkinter.CTk() 
@@ -44,6 +47,13 @@ planner = WeeklyRoutinePlanner()
 
 
 
+def exit_handler():
+    year.saveCall()
+    gally.saveSets()
+    planner.savePlanner()
+
+#On exit Function caller
+atexit.register(exit_handler)
 
 #-------------------functions-----------------------
 def change_appearance_mode_event( new_appearance_mode: str):
