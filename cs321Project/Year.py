@@ -23,7 +23,10 @@ class Year():
 
     def showMonth(self, sideframe):
             self.months[self.currmonth].createMonth(sideframe)
-       
+    def getCurrMonth(self):
+        month_n  = ['January','February','March','April', 'May', 'June', 'July','August', 'September','October','November','December']
+   
+        return month_n[self.currmonth]
     def setMonth(self, choice,sideframe):
         if(choice == "January"):
            self.currmonth = 1 

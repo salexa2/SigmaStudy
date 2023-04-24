@@ -183,7 +183,7 @@ def gallary_page():
    gally.set_galFrame(gallary_frame)
  
    #BUTTON TO CREATE NEW SET IN GALLERY
-   create_set_button = customtkinter.CTkButton(gallary_frame, text= "Create Set", fg_color= "#279400", hover_color="#1C6B00", command = lambda: gally.create_Set(gallary_frame))
+   create_set_button = customtkinter.CTkButton(gallary_frame, text= "Create Set", fg_color= "#279400", hover_color="#1C6B00", command = lambda: gally.create_Set(gallary_frame, create_set_button))
    create_set_button.place(x=10, y=10)
    
 
@@ -225,7 +225,7 @@ def calander_page():
      year.showMonth(side_taskframe)
 
 
-     optionmenu_var = customtkinter.StringVar(value="April")
+     optionmenu_var = customtkinter.StringVar(value=year.getCurrMonth())
      #display month 
      monthmenu = customtkinter.CTkOptionMenu(calander_frame, fg_color = "#279400",  button_color = "#279400", dropdown_hover_color = "#1C6B00" , width = 40,
      height = 25,values=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
