@@ -45,27 +45,27 @@ def get_transcript(video_id):
         print(f"Error: {e}")
         return None
 
-url = input("Enter the YouTube video URL: ")
-video_id = extract_video_id(url)
+#url = input("Enter the YouTube video URL: ")
+#video_id = extract_video_id(url)
 
-if video_id:
-    transcript = get_transcript(video_id)
-    if transcript:
-        print(transcript)
-        save_transcript_to_file(transcript)
-        print("Transcript saved to 'transcript.txt'")
-    else:
-        print("Could not get the transcript")
-else:
-    print("Invalid YouTube URL")
+#if video_id:
+#    transcript = get_transcript(video_id)
+#    if transcript:
+#        print(transcript)
+#        save_transcript_to_file(transcript)
+#        print("Transcript saved to 'transcript.txt'")
+#    else:
+#        print("Could not get the transcript")
+#else:
+#    print("Invalid YouTube URL")
 
 import nltk
 from nltk import word_tokenize
 from nltk.corpus import stopwords
 from collections import Counter
 
-nltk.download('punkt')
-nltk.download('stopwords')
+#nltk.download('punkt')
+#nltk.download('stopwords')
 
 def extract_keywords(text, n=10):
     words = word_tokenize(text)
@@ -76,8 +76,8 @@ def extract_keywords(text, n=10):
     keywords = word_count.most_common(n)
     return [keyword[0] for keyword in keywords]
 
-keywords = extract_keywords(transcript)
-print(keywords)
+#keywords = extract_keywords(transcript)
+#print(keywords)
 
 from googlesearch import search
 
@@ -85,9 +85,9 @@ def search_web(query, num_results=10):
     links = [j for j in search(query, num_results=num_results)]
     return links
 
-query = ' '.join(keywords)
-search_results = search_web(query)
-print(search_results)
+#query = ' '.join(keywords)
+#search_results = search_web(query)
+#print(search_results)
 
 import requests
 from bs4 import BeautifulSoup
@@ -102,13 +102,13 @@ def scrape_content(url):
         print(f"Error: {e}")
         return None
 
-scraped_contents = [scrape_content(url) for url in search_results]
+#scraped_contents = [scrape_content(url) for url in search_results]
 
 from transformers import T5ForConditionalGeneration, T5TokenizerFast
 
-model_name = "t5-base"
-model = T5ForConditionalGeneration.from_pretrained(model_name)
-tokenizer = T5TokenizerFast.from_pretrained(model_name)
+#model_name = "t5-base"
+#model = T5ForConditionalGeneration.from_pretrained(model_name)
+#tokenizer = T5TokenizerFast.from_pretrained(model_name)
 
 def generate_questions_and_answers(text, max_length=512):
     inputs = tokenizer.encode("summarize: " + text, return_tensors="pt", max_length=max_length, truncation=True)
@@ -116,22 +116,22 @@ def generate_questions_and_answers(text, max_length=512):
     generated_text = tokenizer.decode(outputs[0])
     return generated_text
 
-scraped_contents_str = " ".join(scraped_contents)  # or use '\n'.join(scraped_contents) to separate by newlines
+#scraped_contents_str = " ".join(scraped_contents)  # or use '\n'.join(scraped_contents) to separate by newlines
 
-questions_and_answers = generate_questions_and_answers(scraped_contents_str)
+#questions_and_answers = generate_questions_and_answers(scraped_contents_str)
 
 import re
 
-filtered_output = re.sub(r'<extra_id_\d+>', '', questions_and_answers).strip()
-cleaned_output = filtered_output.replace('<pad>', '').replace('</s>', '').strip()
+#filtered_output = re.sub(r'<extra_id_\d+>', '', questions_and_answers).strip()
+#cleaned_output = filtered_output.replace('<pad>', '').replace('</s>', '').strip()
 
-print(cleaned_output)
+#print(cleaned_output)
 
 import re
 from nltk.tokenize import sent_tokenize
 import nltk
 
-nltk.download('punkt')  # Download the Punkt tokenizer
+#nltk.download('punkt')  # Download the Punkt tokenizer
 
 def get_bulleted_list(text):
     sentences = sent_tokenize(text)
@@ -141,7 +141,7 @@ def get_bulleted_list(text):
         bulleted_list.append(f"• {capitalized_sentence}\n")
     return ''.join(bulleted_list)
 
-print(get_bulleted_list)
+#print(get_bulleted_list)
 
 def save_bulleted_list_to_file(text, filename="bulleted_summary.txt"):
     sentences = sent_tokenize(text)
@@ -150,4 +150,4 @@ def save_bulleted_list_to_file(text, filename="bulleted_summary.txt"):
             capitalized_sentence = sentence[0].upper() + sentence[1:]
             f.write(f"• {capitalized_sentence}\n")
 
-save_bulleted_list_to_file(cleaned_output)
+#save_bulleted_list_to_file(cleaned_output)
