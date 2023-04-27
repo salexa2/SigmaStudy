@@ -149,19 +149,7 @@ def summarize_transcript(url):
 
     #linkbar code to text..<inset cide>..... output a text_f - replace none
     #to import and use whatever class do import class name and from classname import * , contact Dai or Chase for assistance
-    ''''
-    Uncomment once you get the textt file of the transcript
 
-    text_f = None
-    
-    
-    #pastes the transcript in text box 
-    if(text_f != None):
-         text_temp = open(text_f, 'r')
-         text = text_temp.read()
-         default_text.insert(END,text)
-         text_temp.close()
-    '''
 
     
 
@@ -179,14 +167,7 @@ def upload_page():
    
    upload_frame = customtkinter.CTkFrame(root, width = 1150, height =700)
    upload_frame.grid(column = 1,row =0, columnspan = 2, rowspan = 2 ,sticky = "NSEW",padx=5)
-   #upload_frame.rowconfigure(0, weight = 1)
-   ##upload_frame.rowconfigure(1, weight = 3)
-   #upload_frame.columnconfigure(0, weight = 2)
-   #upload_frame.columnconfigure(1, weight = 2)
-   #delete later 
-   #upload_label = customtkinter.CTkLabel(upload_frame, text="This is the Upload Menu", font=customtkinter.CTkFont(size=20, weight="bold"))
-   #upload_label.place(x=600,y=0)
-   #holds default text box
+ 
    default_text = customtkinter.CTkTextbox(upload_frame,width=600,height= 650, font = ("Helvetica", 16))
    default_text.place(x= 50, y=100)
 

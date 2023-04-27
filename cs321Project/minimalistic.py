@@ -106,11 +106,12 @@ def scrape_content(url):
 
 from transformers import T5ForConditionalGeneration, T5TokenizerFast
 
-#model_name = "t5-base"
-#model = T5ForConditionalGeneration.from_pretrained(model_name)
-#tokenizer = T5TokenizerFast.from_pretrained(model_name)
 
 def generate_questions_and_answers(text, max_length=512):
+
+    model_name = "t5-base"
+    model = T5ForConditionalGeneration.from_pretrained(model_name)
+    tokenizer = T5TokenizerFast.from_pretrained(model_name)
     inputs = tokenizer.encode("summarize: " + text, return_tensors="pt", max_length=max_length, truncation=True)
     outputs = model.generate(inputs, max_length=max_length, min_length = 500, length_penalty=3.0, num_return_sequences=1)
     generated_text = tokenizer.decode(outputs[0])
