@@ -1,4 +1,4 @@
-﻿import tkinter 
+﻿import tkinter as tk
 from tkinter import * 
 from minimalistic import extract_video_id, get_transcript, save_transcript_to_file, extract_keywords, search_web, scrape_content, generate_questions_and_answers, save_bulleted_list_to_file, get_bulleted_list
 import re
@@ -158,7 +158,25 @@ def optionmenu_callback(choice):
     customtkinter.deactivate_automatic_dpi_awareness()
     customtkinter.set_widget_scaling(float(choice))  
 
+def optionmenu_callback(choice):
+    customtkinter.deactivate_automatic_dpi_awareness()
+    customtkinter.set_widget_scaling(float(choice))  
 
+def show_popup(root):
+    popup = tk.Toplevel(root)
+    popup.title("Summarizing")
+    label = tk.Label(popup, text="Summarizing...", font=("Helvetica", 14))
+    label.pack(padx=20, pady=20)
+    popup.transient(root)
+    popup.grab_set()
+    return popup
+
+def close_popup(popup):
+    popup.destroy()
+
+def delayed_summarize(root, link_entry, default_text):
+    popup = show_popup(root)
+    root.after(20000, lambda: (close_popup(popup), get_url_and_summarize(link_entry, default_text)))
 
 #-------------------pages---------------
 
