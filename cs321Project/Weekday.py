@@ -132,9 +132,12 @@ class Weekday():
         if(item.returnPos() == 0):
             print("Unit Testing: Hobby appended to before")
             #if(he first element is say 12 pm which is the start of afternoon, you caant put afternoon task before it)
-            if(planner[0].getStartTime().hour == 12 |planner[0].getStartTime().hour == 16 | planner[0].getStartTime().hour == 0 and planner[0].getType() == 0):
+            if( planner[0].getType() == 0):
+                if(planner[0].getStartTime().hour == 12 or planner[0].getStartTime().hour == 16 or planner[0].getStartTime().hour == 0):
              
-                        planner.append(item)
+                            planner.append(item)
+                else:
+                    planner.insert(0,item)
             else:
                  if(item.getDayType() == 0):#morning
 
@@ -264,10 +267,7 @@ class Weekday():
            print("Unit Testing: There were no conflicts")
            return False
                 
-            
-            
-           
-
+ 
          
    def getWeekdays(self):
      return self.weekdays
@@ -282,19 +282,33 @@ class Weekday():
        self.mornFrame.pack(side = LEFT)
        self.afterFrame.pack(side = LEFT)
        self.evenFrame.pack(side = LEFT)
+
+       morn_label = customtkinter.CTkLabel(self.mornFrame, text = "Morning", text_color="#000000", font=customtkinter.CTkFont(size=20, weight="bold"))
+       morn_label.pack(anchor = CENTER)
+
+       after_label = customtkinter.CTkLabel(self.afterFrame, text = "Afternoon", text_color="#000000", font=customtkinter.CTkFont(size=20, weight="bold"))
+       after_label.pack(anchor = CENTER)
+
+       even_label = customtkinter.CTkLabel(self.evenFrame, text = "Evening", text_color="#000000",  font=customtkinter.CTkFont(size=20, weight="bold"))
+       even_label.pack(anchor = CENTER)
+
+
+
        
 
    def showAll(self):
-
-
        if(self.state == 1 ):
          print("Day",self.nameD)
          ypos = 10
          count = 0
          for x in self.morn: 
-            if(count == 0 and  x.getType() == 1 ):
+
+            if(count == 0 and  len(self.morn) == 1 and x.getType() == 1  ):
                  x.setStartTime(time(6,0))
                  x.setEndTime(time(6+int(x.getMax()), 0))  
+            elif(count == 0 and  x.getType() == 1  and len(self.morn) > 1):
+                 x.setStartTime(time(0,0))
+                 x.setEndTime(time(int(x.getMax()), 0))  
             else:
                if(x.getType() == 1 and len(self.morn)>1 and count >0 and count < len(self.morn)):
                  print("newwwww:",self.morn[count-1].getEndTime().hour)

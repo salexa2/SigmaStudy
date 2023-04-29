@@ -13,12 +13,14 @@ class day():
     global events 
     global month
     global d_frame
+    global currd
 
     def __init__(self):
        self.day_name = 1
        self.events = []
        self.month = 1
        self.d_frame = None
+       self.currd = 0 
     #sets the name of a day object
     def set_name(self,name):
         self.day_name = name
@@ -37,6 +39,7 @@ class day():
        if(self.day_name == current_time.day and self.month == current_time.month):
            d_frame.configure(fg_color = "#31FF6D")
            d_frame.configure(corner_radius = 10)
+           self.currd = 1
        self.d_frame = d_frame
        if(len(self.events)>0):
            self.d_frame.configure(fg_color = "#167030")
@@ -44,8 +47,11 @@ class day():
 
     #displays the events in side bar
     def event_display(self,frame, day_frame):
+        
        side_taskframe = customtkinter.CTkScrollableFrame(frame, width = 230, height = 650, fg_color = "transparent") 
        side_taskframe.place(x = 0, y = 0)
+       label = customtkinter.CTkLabel(side_taskframe, text="Day " + str(self.day_name), font=customtkinter.CTkFont(size=20, weight="bold"))
+       label.pack(anchor = CENTER)
        add_button = customtkinter.CTkButton(side_taskframe, text = "Add Event", text_color ="#000000",  fg_color= "#FFFFFF",hover_color = "#CFCFCF",font = ("Helvetica",18), command= lambda:self.add_page(side_taskframe,frame, day_frame, add_button))
        add_button.pack(fill = X, pady = 2)
  
@@ -69,11 +75,13 @@ class day():
     #addds event to events list 
     def add_event(self,entry, textbox, frame,basefr, day_frame):
         day_frame.configure(fg_color = "#167030")
-        self.events.append(Event(entry.get(),textbox.get("1.0",END)))
+        self.events.append(Event(entry.get(),textbox.get("1.0",END), self.getCurrD()))
         frame.destroy()
         self.event_display(basefr, day_frame)
         self.d_frame = day_frame
         
+    def getCurrD(self):
+        return self.currd
         
 
    

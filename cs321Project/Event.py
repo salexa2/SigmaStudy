@@ -11,11 +11,13 @@ class Event():
     event_names = ""
     event_description = ""
     switch = 0
+    dayObj = None
     
     #constructor
-    def __init__(self,names,description):
+    def __init__(self,names,description, dayOb):
             self.event_names = names
             self.event_description = description
+            self.dayObj = dayOb
        
     #visual display of events 
     def eventpage(self, events, sideframe,dayframe):
@@ -42,6 +44,9 @@ class Event():
         events.remove(self)
         if( len(events) == 0):
             dayframe.configure(fg_color = "transparent")
+        if(self.dayObj == 1):
+          dayframe.configure(fg_color = "#31FF6D")
+          dayframe.configure(corner_radius = 10)
 
     
 

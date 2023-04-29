@@ -1,4 +1,4 @@
-
+﻿
 
 from operator import truediv
 from ssl import DefaultVerifyPaths
@@ -42,6 +42,7 @@ class WeeklyRoutinePlanner():
  maxx = -1
  when = -1
  pos = -1
+ present = 0
  #holds the plan frame
  mainf = None
  #Tells us if the user clicked any days for required task
@@ -89,10 +90,10 @@ class WeeklyRoutinePlanner():
      hobby_frame = customtkinter.CTkFrame(form_frame, fg_color = "#279400", width = 1000, height = 100) 
      hobby_frame.pack(side = TOP)
 
-     self.help_button_3 = customtkinter.CTkLabel(hobby_frame, text= "Tips")
-     self.help_button_3.place(x = 200, y = 10)
-     self.help_button_4 = customtkinter.CTkLabel(hobby_frame, text= "", width = 40)
-     self.help_button_4.place(x =350, y = 10)
+     self.help_button_3 = customtkinter.CTkLabel(hobby_frame, text= "〶", text_color = "#FFFFFF",font=customtkinter.CTkFont(size=28, weight="bold"))
+     self.help_button_3.place(x = 190, y = 10)
+     self.help_button_4 = customtkinter.CTkLabel(hobby_frame, text= "", text_color = "#FFFFFF",width = 40)
+     self.help_button_4.place(x =250, y = 10)
 
 
      self.help_button_3.bind("<Enter>", self.on_enterh)
@@ -118,7 +119,7 @@ class WeeklyRoutinePlanner():
      divider.pack()
   
  def on_enter(self, event):
-        self.help_button_2.configure(text="*Time Fomat:[H:M AM/PM]\nRequired Tasks are mandatory\n with an assigned time. ")
+        self.help_button_2.configure(text="*Time Fomat:[H:M AM/PM], Required Tasks have an assigned time.\n Add Your Required Tasks first! Tasks are unsorted.")
 
  def on_leave(self, enter):
         self.help_button_2.configure(text="")
@@ -154,10 +155,10 @@ class WeeklyRoutinePlanner():
      self.task_frame = customtkinter.CTkFrame(form_frame, fg_color = "#279400", width = 1000, height = 100) 
      self.task_frame.pack(side = TOP)
      
-     self.help_button_ = customtkinter.CTkLabel(self.task_frame, text= "Tips")
-     self.help_button_.place(x = 575, y = 10)
-     self.help_button_2 = customtkinter.CTkLabel(self.task_frame, text= "", width = 40)
-     self.help_button_2.place(x =635, y = 10)
+     self.help_button_ = customtkinter.CTkLabel(self.task_frame, text= "〶", font=customtkinter.CTkFont(size=28, weight="bold"), text_color = "#FFFFFF")
+     self.help_button_.place(x = 550, y = 10)
+     self.help_button_2 = customtkinter.CTkLabel(self.task_frame, text= "", width = 40, text_color = "#FFFFFF")
+     self.help_button_2.place(x =595, y = 10)
 
 
      self.help_button_.bind("<Enter>", self.on_enter)
@@ -259,9 +260,9 @@ class WeeklyRoutinePlanner():
 
  #Displays planner at start 
  def displayPlan(self)  :
-     #self.loadPlanner()
-     for i in self.planner:
-         i.getweekFrame()
+     if(self.present == 0):
+         for i in self.planner:
+             i.getweekFrame()
      return
  #randomizes the hobbies- LEFT OUT
  def randomGen(self):
@@ -279,6 +280,7 @@ class WeeklyRoutinePlanner():
      print("taskETime", self.taskETime.get())
 #Displays plan in planner
  def printPlan(self,frame,gen):
+     self.present = 0
      self.savePlanner()
      if(self.currentType == 0):
           self.getValues()
@@ -294,11 +296,14 @@ class WeeklyRoutinePlanner():
 
 
  def show_All(self):
-     for m in self.planner:
-          m.showAll()
+     if(self.present == 0):
+         for m in self.planner:
+              m.showAll()
+         self.present = 1
  #Clears a planner
  def reset(self):
     self.clearA()
+    self.present = 0
     #self.savePlanner()
  #Hobby-gets the times of day from a hobby
  def optionmenu_callbackT(self,choice):#times a day
@@ -451,7 +456,7 @@ class WeeklyRoutinePlanner():
     
  #Gets the values from the day widgets
  def getValues(self): 
-
+     self.present = 0
      
      self.days.append(self.Checkbutton1)
      self.days.append(self.Checkbutton2)
@@ -485,6 +490,7 @@ class WeeklyRoutinePlanner():
      return False
  #Gets H's values
  def getValuesH(self):  
+     self.present = 0
      if(self.switch == -1):
        print("Unit Testing: No Days selected --getValuesH funtion")
        self.error.place(x = 880, y= 5)

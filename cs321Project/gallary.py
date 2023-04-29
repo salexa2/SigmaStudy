@@ -86,14 +86,9 @@ class gallary():
   
     #displays all the flashcard sets on the gallary page
     def display(self, galf):
-        upload_label = customtkinter.CTkLabel(galf, text="This is the Gallary", font=customtkinter.CTkFont(size=20, weight="bold"))
-        upload_label.place(x=600,y=0)
         count = 0
         posx = 50
         posy = 100
-
-        
-
 
         print("Unit Testing 3.1: Gallary: shows all the sets\n")
        
@@ -123,11 +118,16 @@ class gallary():
         create_clear_button = customtkinter.CTkButton(galf, text= "Clear All Sets", fg_color= "#279400", hover_color="#1C6B00", command = lambda: self.clearSets())
         create_clear_button.place(x=200, y=10)
 
+
+
+
+
     def reload_Gal(self):
-        for i in self.galframe.winfo_children():
-            i.destroy()
-        self.display(self.galframe)
-        self.createButtons(self.galframe)
+        if(self.galframe !=None):
+            for i in self.galframe.winfo_children():
+                i.destroy()
+            self.display(self.galframe)
+            self.createButtons(self.galframe)
     #loads flashcard sets (called on program launch) --DO NOT TOUCH UNLESS YOU'RE CHASE 
     def loadSets(self):
         loader = SaveAndLoad.load_data(self.saveName);

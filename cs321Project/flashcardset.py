@@ -235,12 +235,6 @@ class flashcardset:
             print("Unit Testing Case 6.0: Modifying set - Edit")
             self.edit_Page(galObject)
         
-        #FARAZ IMPLEMENT
-        if(choice == "Quiz"):
-            print("Unit Testing Case 7.0: Quiz")
-            
-            #create a page and functions to create a quiz - shows frony flashcard up top and 4 answer choice buttons in 2x2 formation
-
         if(choice == "Delete"):
             print("Unit Testing Case 5.0: Modifying a set  - Delete a set")
             self.delete_Page(galObject,setframe)
@@ -254,7 +248,7 @@ class flashcardset:
          set_label.place(x = 50, y = 30, anchor = "center")
          play_b = customtkinter.CTkButton(set_frame, text = "▶️",width = 3,height = 3, hover_color= "#279400", fg_color= "transparent", font=customtkinter.CTkFont(size=12), command = lambda: self.play_Page(galf))
          play_b.place(x = 16, y = 85, anchor = "center")
-         combobox = customtkinter.CTkOptionMenu(set_frame, fg_color = "#279400",  button_color = "#279400", dropdown_hover_color = "#1C6B00" , width = 18, height = 19,values=["Edit", "Quiz","Delete"], font=customtkinter.CTkFont(size=12), command = lambda choice: self.optionmenu_callback(choice,galObject,set_frame), variable = optionmenu_var)
+         combobox = customtkinter.CTkOptionMenu(set_frame, fg_color = "#279400",  button_color = "#279400", dropdown_hover_color = "#1C6B00" , width = 18, height = 19,values=["Edit", "Delete"], font=customtkinter.CTkFont(size=12), command = lambda choice: self.optionmenu_callback(choice,galObject,set_frame), variable = optionmenu_var)
          combobox.place(x= 33,y=75)
        
               
@@ -314,7 +308,9 @@ class flashcardset:
          done_button = customtkinter.CTkButton(self.flash_frame, text = "✔️" , text_color ="#000000", fg_color= "#FFFFFF", hover_color = "#CFCFCF" ,corner_radius = 200, width = 25, height = 30, font = ("Helvetica",18), anchor="center", command = lambda: self.addtoGal(galObject,button))
          done_button.place(x=480, y= 338)
 
-         cancel_button = customtkinter.CTkButton(self.flash_frame, text= "❌", text_color ="#FFFFFF", fg_color= "transparent" , corner_radius = 200, width = 30, height = 30, font = ("Helvetica",18), anchor="center", command = lambda:self.flash_frame.destroy())
+         cancel_button = customtkinter.CTkButton(self.flash_frame, text= "❌", text_color ="#FFFFFF", fg_color= "transparent" , corner_radius = 200, width = 30, height = 30, font = ("Helvetica",18), anchor="center", command = lambda: self.activateButton(button))
          cancel_button.place(x=5, y= 338)
 
- 
+    def activateButton(self,button):
+        button.configure(state = "normal")
+        self.flash_frame.destroy()

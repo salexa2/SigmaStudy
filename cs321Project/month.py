@@ -86,9 +86,7 @@ class month():
              if(len(self.daysInMonth)> counter-1 ):
                  print("this should show old months\n")
                  self.daysInMonth[counter-1].day_frame(frame,tempx,tempy,fr, month)
-                 #self.daysInMonth[ counter-1].get_d_frame().place(x =tempx, y = tempy )
-                # if(len(self.daysInMonth[counter-1].events) >= 1):
-                 #       configure(fg_color = "#167030")
+            
              else:
                 n_day = day()
                 n_day.set_name(counter)
@@ -106,9 +104,9 @@ class month():
 
     #checks the month and displays the page/calande
     def createMonth(self, frame):
-            self.weekDay(self.current_time.year, self.currentMonth, 1)
+            self.weekDay(self.current_time.year, self.currentMonth+1, 1)
         
-            numdays = self.monthdays[self.currentMonth - 1]
+            numdays = self.monthdays[self.currentMonth]
 
    
             mon_frame = customtkinter.CTkFrame(self.monthframe,width = 1000, height = 650 , fg_color = "#22B14C") 
@@ -120,7 +118,7 @@ class month():
             index = self.week.index(self.dayStart)
             tempx = self.week_xpos[index]-20
             tempy = 100
-            self.place_dayFrames(mon_frame,tempx,tempy,numdays,frame, self.currentMonth)
+            self.place_dayFrames(mon_frame,tempx,tempy,numdays,frame, self.currentMonth+1)
          
             ''''
         if(self.currentMonth  == 1):

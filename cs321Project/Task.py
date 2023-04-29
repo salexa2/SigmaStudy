@@ -196,13 +196,13 @@ class Task():
             self.tempFrame = customtkinter.CTkFrame(frame, fg_color = "transparent",width = 500, height =50)
             self.tempFrame.pack(side = TOP)
 
-            task_frame = customtkinter.CTkButton(self.tempFrame, text = self.descript, text_color = "#000000",font=customtkinter.CTkFont(size=25,family = "Comic Sans MS" ,weight="bold"), hover_color="#279400", fg_color="transparent",width = 500,height = 100 ) 
+            task_frame = customtkinter.CTkButton(self.tempFrame, text = self.descript, text_color = "#000000",font=customtkinter.CTkFont(size=25,family = "Segoe Print" ,weight="bold"), hover_color="#279400", fg_color="transparent",width = 500,height = 100 ) 
             task_frame.pack()
         else:
             self.tempFrame = customtkinter.CTkFrame(frame, fg_color = "transparent",width = 500, height =50)
             self.tempFrame.pack(side = TOP)
 
-            self.taskframe = customtkinter.CTkButton(self.tempFrame, text_color = "#000000", text = self.descript,font=customtkinter.CTkFont(size=25,family = "Comic Sans MS", weight="bold"), hover_color="#279400", fg_color="transparent",width = 500,height = 100 ) 
+            self.taskframe = customtkinter.CTkButton(self.tempFrame, text_color = "#000000", text = self.descript,font=customtkinter.CTkFont(size=25,family = "Segoe Print", weight="bold"), hover_color="#279400", fg_color="transparent",width = 500,height = 100 ) 
             self.taskframe.pack()
     def getTaskButton(self):
         return self.taskFrame
