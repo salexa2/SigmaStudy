@@ -503,7 +503,7 @@ sidebar_button_1.place(x = 20, y = 50)
 sidebar_button_2 = customtkinter.CTkButton(sidebar_frame, text= "Flash Card Gallary",fg_color= "#279400",hover_color="#1C6B00", command=gallary_page)
 sidebar_button_2.place(x = 20, y = 100)
 
-sidebar_button_3 = customtkinter.CTkButton(sidebar_frame, text= "Calender",fg_color= "#279400",hover_color="#1C6B00",command= calander_page)
+sidebar_button_3 = customtkinter.CTkButton(sidebar_frame, text= "Calendar",fg_color= "#279400",hover_color="#1C6B00",command= calander_page)
 sidebar_button_3.place(x = 20, y = 150)
 
 sidebar_button_4 = customtkinter.CTkButton(sidebar_frame, text= "Generator",fg_color= "#279400",hover_color="#1C6B00", command = plan_page)
