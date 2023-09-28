@@ -10,4 +10,4 @@ they have learned. Sigma Study also features a calendar where users can add and
 delete events, as well as a schedule generator that creates a weekly routine based 
 on inputted information. With Sigma Study, learning has never been easier or more convenient.
 
-Developers: Shadai Alexander, Chase Walters, Faraaz Rahman
+Developers: Shadai Alexander, Chase Walters
