@@ -18,9 +18,15 @@ lib/
 /site-packages/
 
 # Ignore customtkinter, Pillow, googletrans and other dependencies directories if they were added by mistake
-/customtkinter/
-/Pillow/
-/googletrans/
+/cs321Project/customtkinter/
+/cs321Project/Pillow/
+/cs321Project/googletrans/
+/cs321Project/PIL/
+/cs321Project/customtkinter-5.1.2.dist-info/
+/cs321Project/Pillow-9.4.0.dist-info/
+/cs321Project/darkdetect/
+
+/cs321Project/env/
 
 
 # User-specific files
