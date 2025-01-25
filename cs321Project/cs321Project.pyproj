@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>63a5e0a9-7f54-4668-a8f5-857aee01b178</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>cs321Project.py</StartupFile>
+    <StartupFile>sigmastudy.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,19 +22,18 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="cs321Project.py" />
+    <Compile Include="sigmastudy.py" />
     <Compile Include="day.py" />
     <Compile Include="Event.py" />
     <Compile Include="flashcard.py" />
     <Compile Include="flashcardset.py" />
     <Compile Include="gallary.py" />
-    <Compile Include="minimalistic.py" />
     <Compile Include="month.py" />
     <Compile Include="SaveAndLoad.py" />
-    <Compile Include="testing321.py" />
     <Compile Include="Weekday.py" />
     <Compile Include="WeeklyRoutinePlanner.py" />
     <Compile Include="Year.py" />
+    <Compile Include="YoutubeTranscript.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

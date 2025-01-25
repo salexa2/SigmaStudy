@@ -29,6 +29,7 @@ lib/
 
 /cs321Project/env/
 
+*.code-workspace
 
 # User-specific files
 *.rsuser
